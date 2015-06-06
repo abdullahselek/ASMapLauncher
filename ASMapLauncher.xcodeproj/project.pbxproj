@@ -7,13 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A4B94E801B238C94006FFC09 /* ASMapLauncher.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4B94E7F1B238C94006FFC09 /* ASMapLauncher.swift */; };
 		A4EC75461B2362A900A4528E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4EC75451B2362A900A4528E /* AppDelegate.swift */; };
 		A4EC75481B2362A900A4528E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4EC75471B2362A900A4528E /* ViewController.swift */; };
 		A4EC754B1B2362A900A4528E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A4EC75491B2362A900A4528E /* Main.storyboard */; };
 		A4EC754D1B2362A900A4528E /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A4EC754C1B2362A900A4528E /* Images.xcassets */; };
 		A4EC75501B2362A900A4528E /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4EC754E1B2362A900A4528E /* LaunchScreen.xib */; };
 		A4EC755C1B2362A900A4528E /* ASMapLauncherTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4EC755B1B2362A900A4528E /* ASMapLauncherTests.swift */; };
-		A4EC75671B23637B00A4528E /* ASMapLauncher.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4EC75661B23637B00A4528E /* ASMapLauncher.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -27,6 +27,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		A4B94E7F1B238C94006FFC09 /* ASMapLauncher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ASMapLauncher.swift; path = Source/ASMapLauncher.swift; sourceTree = "<group>"; };
 		A4EC75401B2362A900A4528E /* ASMapLauncher.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ASMapLauncher.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A4EC75441B2362A900A4528E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A4EC75451B2362A900A4528E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -37,7 +38,6 @@
 		A4EC75551B2362A900A4528E /* ASMapLauncherTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ASMapLauncherTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A4EC755A1B2362A900A4528E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A4EC755B1B2362A900A4528E /* ASMapLauncherTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ASMapLauncherTests.swift; sourceTree = "<group>"; };
-		A4EC75661B23637B00A4528E /* ASMapLauncher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ASMapLauncher.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +58,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		A4B94E7E1B238C5E006FFC09 /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				A4B94E7F1B238C94006FFC09 /* ASMapLauncher.swift */,
+			);
+			name = Source;
+			sourceTree = "<group>";
+		};
 		A4EC75371B2362A900A4528E = {
 			isa = PBXGroup;
 			children = (
@@ -79,13 +87,13 @@
 		A4EC75421B2362A900A4528E /* ASMapLauncher */ = {
 			isa = PBXGroup;
 			children = (
+				A4B94E7E1B238C5E006FFC09 /* Source */,
 				A4EC75451B2362A900A4528E /* AppDelegate.swift */,
 				A4EC75471B2362A900A4528E /* ViewController.swift */,
 				A4EC75491B2362A900A4528E /* Main.storyboard */,
 				A4EC754C1B2362A900A4528E /* Images.xcassets */,
 				A4EC754E1B2362A900A4528E /* LaunchScreen.xib */,
 				A4EC75431B2362A900A4528E /* Supporting Files */,
-				A4EC75661B23637B00A4528E /* ASMapLauncher.swift */,
 			);
 			path = ASMapLauncher;
 			sourceTree = "<group>";
@@ -215,7 +223,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A4EC75671B23637B00A4528E /* ASMapLauncher.swift in Sources */,
+				A4B94E801B238C94006FFC09 /* ASMapLauncher.swift in Sources */,
 				A4EC75481B2362A900A4528E /* ViewController.swift in Sources */,
 				A4EC75461B2362A900A4528E /* AppDelegate.swift in Sources */,
 			);
