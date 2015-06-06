@@ -135,10 +135,9 @@ class ViewController: UIViewController, UIActionSheetDelegate, CLLocationManager
         showNavigationSheet()
         
         /*** navigation for only selected map app type
-        var destination: CLLocation! = CLLocation(latitude: 41.0053215, longitude: 29.0121795)
-        
         var isInstalled = mapLauncher.isMapAppInstalled(ASMapApp.ASMapAppGoogleMaps)
         if isInstalled {
+            var destination: CLLocation! = CLLocation(latitude: 41.0053215, longitude: 29.0121795)
             var fromMapPoint: ASMapPoint! = ASMapPoint(location: CLLocation(latitude: currenctCoordinate.latitude, longitude: currenctCoordinate.longitude), name: "", address: "")
             var toMapPoint: ASMapPoint! = ASMapPoint(location: CLLocation(latitude: destination.coordinate.latitude, longitude: destination.coordinate.longitude), name: "", address: "")
             mapLauncher.launchMapApp(ASMapApp.ASMapAppGoogleMaps, fromDirections: fromMapPoint, toDirection: toMapPoint)
