@@ -2,6 +2,7 @@
 ASMapLauncher is a library for iOS written in Swift that helps navigation with various mapping applications.
 
 First initiate ASMapLauncher and check for a selected mapping application that installed on device
+
 	mapLauncher = ASMapLauncher()
 	var isInstalled = mapLauncher.isMapAppInstalled(ASMapApp.ASMapAppGoogleMaps)
 	
