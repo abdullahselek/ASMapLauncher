@@ -16,6 +16,7 @@ Then, launch selected mapping application
     }
 
 Supported mapping applications
+
 	- Apple Maps
 	- Google Maps
 	- Yandex Navigator
