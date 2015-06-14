@@ -25,7 +25,7 @@ Supported mapping applications
 	- The Transit App
 	- Waze
 	
-# MIT Licence
+# MIT License
 
 Copyright (c) 2015 Abdullah Selek
 
