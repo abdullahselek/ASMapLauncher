@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		A4B94E801B238C94006FFC09 /* ASMapLauncher.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4B94E7F1B238C94006FFC09 /* ASMapLauncher.swift */; };
+		A4D9005D1B2DEC9300FCD9B5 /* ASMapLauncher.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4B94E7F1B238C94006FFC09 /* ASMapLauncher.swift */; };
 		A4EC75461B2362A900A4528E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4EC75451B2362A900A4528E /* AppDelegate.swift */; };
 		A4EC75481B2362A900A4528E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4EC75471B2362A900A4528E /* ViewController.swift */; };
 		A4EC754B1B2362A900A4528E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A4EC75491B2362A900A4528E /* Main.storyboard */; };
@@ -233,6 +234,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A4D9005D1B2DEC9300FCD9B5 /* ASMapLauncher.swift in Sources */,
 				A4EC755C1B2362A900A4528E /* ASMapLauncherTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
