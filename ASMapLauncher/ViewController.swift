@@ -43,9 +43,9 @@ class ViewController: UIViewController, UIActionSheetDelegate, CLLocationManager
 
     func showNavigationSheet() {
         self.mapApps = mapLauncher.getMapApps()
-        var actionSheet = UIActionSheet(title: "Choose your app for navigation", delegate: self, cancelButtonTitle: nil, destructiveButtonTitle: nil)
+        let actionSheet = UIActionSheet(title: "Choose your app for navigation", delegate: self, cancelButtonTitle: nil, destructiveButtonTitle: nil)
         for mapApp in self.mapApps {
-            actionSheet.addButtonWithTitle(mapApp as! String)
+            actionSheet.addButtonWithTitle(mapApp as? String)
         }
         actionSheet.addButtonWithTitle("Cancel")
         actionSheet.cancelButtonIndex = mapApps.count
@@ -59,11 +59,11 @@ class ViewController: UIViewController, UIActionSheetDelegate, CLLocationManager
             return
         }
         
-        var mapApp: String! = self.mapApps[buttonIndex] as! String
-        var destination: CLLocation! = CLLocation(latitude: 41.0053215, longitude: 29.0121795)
+        let mapApp: String! = self.mapApps[buttonIndex] as! String
+        let destination: CLLocation! = CLLocation(latitude: 41.0053215, longitude: 29.0121795)
         
-        var fromMapPoint: ASMapPoint! = ASMapPoint(location: CLLocation(latitude: currenctCoordinate.latitude, longitude: currenctCoordinate.longitude), name: "", address: "")
-        var toMapPoint: ASMapPoint! = ASMapPoint(location: CLLocation(latitude: destination.coordinate.latitude, longitude: destination.coordinate.longitude), name: "", address: "")
+        let fromMapPoint: ASMapPoint! = ASMapPoint(location: CLLocation(latitude: currenctCoordinate.latitude, longitude: currenctCoordinate.longitude), name: "", address: "")
+        let toMapPoint: ASMapPoint! = ASMapPoint(location: CLLocation(latitude: destination.coordinate.latitude, longitude: destination.coordinate.longitude), name: "", address: "")
         
         mapLauncher.launchMapApp(ASMapApp(rawValue: mapApp)!, fromDirections: fromMapPoint, toDirection: toMapPoint)
     }
@@ -83,48 +83,48 @@ class ViewController: UIViewController, UIActionSheetDelegate, CLLocationManager
         *   kCLLocationAccuracyThreeKilometers
         **/
         locationManager.desiredAccuracy = kCLLocationAccuracyBestForNavigation
-        locationManager.requestWhenInUseAuthorization()
-        if (CLLocationManager.locationServicesEnabled()) {
-            locationManager.startUpdatingLocation()
-        }
+        self.locationManager.requestWhenInUseAuthorization()
+        
+        startUpdatingLocation()
     }
     
     // MARK: Location Manager delegates
     
-    func locationManager(manager: CLLocationManager!,
+    func locationManager(manager: CLLocationManager,
         didChangeAuthorizationStatus status: CLAuthorizationStatus) {
             switch status {
-            case CLAuthorizationStatus.Restricted:
-                locationManager.requestWhenInUseAuthorization()
-                break
-            case CLAuthorizationStatus.Denied:
-                locationManager.requestWhenInUseAuthorization()
-                break
-            case CLAuthorizationStatus.NotDetermined:
+            case CLAuthorizationStatus.Restricted, CLAuthorizationStatus.Denied, CLAuthorizationStatus.NotDetermined:
                 locationManager.requestWhenInUseAuthorization()
                 break
             case CLAuthorizationStatus.AuthorizedAlways, CLAuthorizationStatus.AuthorizedWhenInUse:
-                if (CLLocationManager.locationServicesEnabled()) {
-                    locationManager.startUpdatingLocation()
-                }
+                startUpdatingLocation()
                 break
             }
     }
     
-    func locationManager(manager: CLLocationManager!, didUpdateLocations locations: [AnyObject]!) {
-        var locationArray = locations as NSArray
-        var locationObj = locationArray.lastObject as! CLLocation
-        var coordinate = locationObj.coordinate
+    func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        let locationArray = locations as NSArray
+        let locationObj = locationArray.lastObject as! CLLocation
+        let coordinate = locationObj.coordinate
         self.currenctCoordinate = coordinate
         
         locationManager.stopUpdatingLocation()
         self.enableIndicator(false)
     }
     
-    func locationManager(manager: CLLocationManager!, didFailWithError error: NSError!) {
+    func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
         locationManager.stopUpdatingLocation()
-        if (error != nil) {
-            
+
+    }
+    
+    func startUpdatingLocation() {
+        if (CLLocationManager.locationServicesEnabled()) {
+            if #available(iOS 9.0, *) {
+                locationManager.requestLocation()
+            } else {
+                // Fallback on earlier versions
+                locationManager.startUpdatingLocation()
+            }
         }
     }
 

@@ -29,7 +29,7 @@ class ASMapLauncherTests: XCTestCase {
     }
     
     func testUrlPrefixForMapApp() {
-        var mapAppType: ASMapApp! = ASMapApp.ASMapAppAppleMaps
+        let mapAppType: ASMapApp! = ASMapApp.ASMapAppAppleMaps
         XCTAssertNotNil(mapAppType.rawValue, "Map app value can not be nil")
         
         let urlPrefix = mapLauncher.urlPrefixForMapApp(mapAppType)
@@ -37,7 +37,7 @@ class ASMapLauncherTests: XCTestCase {
     }
     
     func testIsMapAppInstalled() {
-        var mapAppType: ASMapApp! = ASMapApp.ASMapAppAppleMaps
+        let mapAppType: ASMapApp! = ASMapApp.ASMapAppAppleMaps
         XCTAssertNotNil(mapAppType.rawValue, "Map app value can not be nil")
         
         let isMapAppInstalled = mapLauncher.isMapAppInstalled(mapAppType)
@@ -45,11 +45,11 @@ class ASMapLauncherTests: XCTestCase {
     }
     
     func testGoogleMapsString() {
-        var mapAppType: ASMapApp! = ASMapApp.ASMapAppAppleMaps
+        let mapAppType: ASMapApp! = ASMapApp.ASMapAppAppleMaps
         XCTAssertNotNil(mapAppType.rawValue, "Map app value can not be nil")
         
-        var location: CLLocation! = CLLocation(latitude: 41.0053215, longitude: 29.0121795)
-        var mapPoint: ASMapPoint! = ASMapPoint(location: location, name: "", address: "")
+        let location: CLLocation! = CLLocation(latitude: 41.0053215, longitude: 29.0121795)
+        let mapPoint: ASMapPoint! = ASMapPoint(location: location, name: "", address: "")
         
         let googleMapsString = mapLauncher.googleMapsString(mapPoint)
         XCTAssertNotNil(googleMapsString, "Google map string failed")
