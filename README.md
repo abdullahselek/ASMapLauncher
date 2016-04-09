@@ -18,6 +18,7 @@ Then, launch selected mapping application
 Supported mapping applications
 
 	- Apple Maps
+	- HERE Maps
 	- Google Maps
 	- Yandex Navigator
 	- Citymapper
