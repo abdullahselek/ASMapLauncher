@@ -31,6 +31,7 @@ import MapKit
 
 enum ASMapApp : String {
     case ASMapAppAppleMaps = "Apple Maps",
+    ASMapAppHEREMaps = "HERE Maps",
     ASMapAppGoogleMaps = "Google Maps",
     ASMapAppYandexNavigator = "Yandex Navigator",
     ASMapAppCitymapper = "Citymapper",
@@ -38,7 +39,7 @@ enum ASMapApp : String {
     ASMapAppTheTransitApp = "The Transit App",
     ASMapAppWaze = "Waze"
     
-    static let allValues = [ASMapAppAppleMaps, ASMapAppGoogleMaps, ASMapAppYandexNavigator, ASMapAppCitymapper, ASMapAppNavigon, ASMapAppTheTransitApp, ASMapAppWaze]
+    static let allValues = [ASMapAppAppleMaps, ASMapAppHEREMaps, ASMapAppGoogleMaps, ASMapAppYandexNavigator, ASMapAppCitymapper, ASMapAppNavigon, ASMapAppTheTransitApp, ASMapAppWaze]
 }
 
 class ASMapLauncher {
@@ -62,6 +63,8 @@ class ASMapLauncher {
     
     func urlPrefixForMapApp(mapApp: ASMapApp) -> String {
         switch(mapApp) {
+        case .ASMapAppHEREMaps:
+            return "here-route://"
         case .ASMapAppGoogleMaps:
             return "comgooglemaps://"
         case .ASMapAppYandexNavigator:
@@ -100,6 +103,9 @@ class ASMapLauncher {
         switch(mapApp) {
         case .ASMapAppAppleMaps:
             let url: String = NSString(format: "http://maps.apple.com/?saddr=%@&daddr=%@&z=14", googleMapsString(fromDirections), googleMapsString(toDirection)) as String
+            return UIApplication.sharedApplication().openURL(NSURL(string: url)!)
+        case .ASMapAppHEREMaps:
+            let url: String = NSString(format: "here-route://%f,%f,%@/%f,%f,%@", fromDirections.location.coordinate.latitude, fromDirections.location.coordinate.longitude, fromDirections.name, toDirection.location.coordinate.latitude, toDirection.location.coordinate.longitude, toDirection.name) as String
             return UIApplication.sharedApplication().openURL(NSURL(string: url)!)
         case .ASMapAppGoogleMaps:
             let url: String = NSString(format: "comgooglemaps://?saddr=%@&daddr=%@", googleMapsString(fromDirections), googleMapsString(toDirection)) as String
