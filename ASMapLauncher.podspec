@@ -9,7 +9,7 @@ Pod::Spec.new do |s|
         :file => 'LICENSE'
     }
     s.author              = {
-        'YOURNAME' => 'Abdullah SELEK'
+        'Abdullah Selek' => 'abdullahselek@yahoo.com'
     }
     s.source              = {
         :git => 'https://github.com/abdullahselek/ASMapLauncher.git',

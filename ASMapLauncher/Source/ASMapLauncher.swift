@@ -42,7 +42,7 @@ enum ASMapApp : String {
     static let allValues = [ASMapAppAppleMaps, ASMapAppHEREMaps, ASMapAppGoogleMaps, ASMapAppYandexNavigator, ASMapAppCitymapper, ASMapAppNavigon, ASMapAppTheTransitApp, ASMapAppWaze]
 }
 
-class ASMapLauncher {
+public class ASMapLauncher {
     
     private var availableMapApps: NSMutableArray!
     
