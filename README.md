@@ -1,6 +1,29 @@
 # ASMapLauncher
 ASMapLauncher is a library for iOS written in Swift that helps navigation with various mapping applications.
 
+# Requirements
+iOS 8.0+
+
+# CocoaPods
+
+CocoaPods is a dependency manager for Cocoa projects. You can install it with the following command:
+	
+	$ gem install cocoapods
+
+To integrate ASMapLauncher into your Xcode project using CocoaPods, specify it in your Podfile:
+
+	source 'https://github.com/CocoaPods/Specs.git'
+	platform :ios, '8.0'
+	use_frameworks!
+
+	target '<Your Target Name>' do
+    	pod 'ASMapLauncher', '~> 0.0.4'
+	end
+
+Then, run the following command:
+
+	$ pod install
+
 First initiate ASMapLauncher and check for a selected mapping application that installed on device
 
 	mapLauncher = ASMapLauncher()
