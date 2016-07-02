@@ -24,10 +24,12 @@ Then, run the following command:
 
 	$ pod install
 
+# Usage
+
 First initiate ASMapLauncher and check for a selected mapping application that installed on device
 
 	mapLauncher = ASMapLauncher()
-	var isInstalled = mapLauncher.isMapAppInstalled(ASMapApp.ASMapAppGoogleMaps)
+	var isInstalled = mapLauncher.isMapAppInstalled(ASMapApp.ASMapAppHEREMaps)
 	
 Then, launch selected mapping application
 
