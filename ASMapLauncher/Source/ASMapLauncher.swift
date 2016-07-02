@@ -196,7 +196,7 @@ public class ASMapPoint: NSObject {
     var name: String!
     var address: String!
     
-    init(location: CLLocation!, name: String!, address: String!) {
+    public init(location: CLLocation!, name: String!, address: String!) {
         self.location = location
         self.name = name
         self.address = address
