@@ -29,7 +29,7 @@
 import Foundation
 import MapKit
 
-enum ASMapApp : String {
+public enum ASMapApp : String {
     case ASMapAppAppleMaps = "Apple Maps",
     ASMapAppHEREMaps = "HERE Maps",
     ASMapAppGoogleMaps = "Google Maps",
@@ -46,13 +46,13 @@ public class ASMapLauncher {
     
     private var availableMapApps: NSMutableArray!
     
-    init() {
+    public init() {
         getAvailableNavigationApps()
     }
     
     // MARK: Get Available Navigation Apps
     
-    func getAvailableNavigationApps() {
+    private func getAvailableNavigationApps() {
         self.availableMapApps = NSMutableArray()
         for type in ASMapApp.allValues {
             if isMapAppInstalled(type) {
@@ -61,7 +61,7 @@ public class ASMapLauncher {
         }
     }
     
-    func urlPrefixForMapApp(mapApp: ASMapApp) -> String {
+    public func urlPrefixForMapApp(mapApp: ASMapApp) -> String {
         switch(mapApp) {
         case .ASMapAppHEREMaps:
             return "here-route://"
@@ -82,7 +82,7 @@ public class ASMapLauncher {
         }
     }
     
-    func isMapAppInstalled(mapApp: ASMapApp) -> Bool {
+    public func isMapAppInstalled(mapApp: ASMapApp) -> Bool {
         if mapApp == .ASMapAppAppleMaps {
             return true
         }
@@ -95,7 +95,7 @@ public class ASMapLauncher {
         return UIApplication.sharedApplication().canOpenURL(NSURL(string: urlPrefix)!)
     }
 
-    func launchMapApp(mapApp: ASMapApp, fromDirections: ASMapPoint!, toDirection: ASMapPoint!) -> Bool {
+    public func launchMapApp(mapApp: ASMapApp, fromDirections: ASMapPoint!, toDirection: ASMapPoint!) -> Bool {
         if !isMapAppInstalled(mapApp) {
             return false
         }
@@ -190,7 +190,7 @@ public class ASMapLauncher {
     
 }
 
-class ASMapPoint: NSObject {
+public class ASMapPoint: NSObject {
     
     var location: CLLocation!
     var name: String!
