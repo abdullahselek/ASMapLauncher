@@ -29,6 +29,9 @@
 import Foundation
 import MapKit
 
+/**
+  * Supported map applications
+ */
 public enum ASMapApp : String {
     case ASMapAppAppleMaps = "Apple Maps",
     ASMapAppHEREMaps = "HERE Maps",
@@ -42,16 +45,28 @@ public enum ASMapApp : String {
     static let allValues = [ASMapAppAppleMaps, ASMapAppHEREMaps, ASMapAppGoogleMaps, ASMapAppYandexNavigator, ASMapAppCitymapper, ASMapAppNavigon, ASMapAppTheTransitApp, ASMapAppWaze]
 }
 
+/**
+  * Launcher class
+ */
 public class ASMapLauncher {
     
+    /**
+      * Holds available map applications
+     */
     private var availableMapApps: NSMutableArray!
     
+    /**
+      * Initiliaze Map Launcher
+     */
     public init() {
         getAvailableNavigationApps()
     }
     
     // MARK: Get Available Navigation Apps
     
+    /**
+      * Prepares available navigation apps installed on device
+     */
     private func getAvailableNavigationApps() {
         self.availableMapApps = NSMutableArray()
         for type in ASMapApp.allValues {
@@ -61,6 +76,13 @@ public class ASMapLauncher {
         }
     }
     
+    /**
+      * Prepares url scheme prefix used to open app with given app type
+      *
+      * @param mapApp ASMapApp enum
+      *
+      * @return Url Prefix
+     */
     public func urlPrefixForMapApp(mapApp: ASMapApp) -> String {
         switch(mapApp) {
         case .ASMapAppHEREMaps:
@@ -82,6 +104,13 @@ public class ASMapLauncher {
         }
     }
     
+    /**
+      * Checks if app installed with given app type
+      *
+      * @param mapApp ASMapApp
+      *
+      * @return Bool installed or not
+     */
     public func isMapAppInstalled(mapApp: ASMapApp) -> Bool {
         if mapApp == .ASMapAppAppleMaps {
             return true
@@ -95,6 +124,15 @@ public class ASMapLauncher {
         return UIApplication.sharedApplication().canOpenURL(NSURL(string: urlPrefix)!)
     }
 
+    /**
+      * Launch navigation application with given app and directions
+      *
+      * @param mapApp ASMapApp
+      * @param fromDirections ASMapPoint
+      * @param toDirection ASMapPoint
+      *
+      * @return Launched or not
+     */
     public func launchMapApp(mapApp: ASMapApp, fromDirections: ASMapPoint!, toDirection: ASMapPoint!) -> Bool {
         if !isMapAppInstalled(mapApp) {
             return false
@@ -161,6 +199,13 @@ public class ASMapLauncher {
         }
     }
     
+    /**
+      * Prepares deep linking url with given point
+      *
+      * @param mapPoint ASMapPoint
+      *
+      * @return Deeplink url
+     */
     func googleMapsString(mapPoint: ASMapPoint) -> NSString {
         if !CLLocationCoordinate2DIsValid(mapPoint.location.coordinate) {
             return ""
@@ -174,12 +219,24 @@ public class ASMapLauncher {
         return NSString(format: "%f,%f", mapPoint.location.coordinate.latitude, mapPoint.location.coordinate.longitude)
     }
     
+    /**
+      * Encodes given string
+      *
+      * @param name NSString
+      *
+      * @return Encoded name
+     */
     func urlEncode(name: NSString) -> NSString {
         return name.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())!
     }
     
     // MARK: Map Apps Getter
     
+    /**
+      * Returns available navigation apps
+      *
+      * @return Map Apps
+     */
     func getMapApps() -> NSMutableArray! {
         if self.availableMapApps == nil {
             self.availableMapApps = NSMutableArray()
@@ -190,12 +247,33 @@ public class ASMapLauncher {
     
 }
 
+/**
+  * Point class used for deep linking
+ */
 public class ASMapPoint: NSObject {
     
+    /**
+      * Location value for navigation
+     */
     var location: CLLocation!
+    
+    /**
+      * Place name
+     */
     var name: String!
+    
+    /**
+      * Place address
+     */
     var address: String!
     
+    /**
+      * Initialize point object with given parameters
+      *
+      * @param location Location belongs to place
+      * @param name Name belongs to place
+      * @param address Address belongs to place
+     */
     public init(location: CLLocation!, name: String!, address: String!) {
         self.location = location
         self.name = name
