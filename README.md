@@ -17,7 +17,7 @@ To integrate ASMapLauncher into your Xcode project using CocoaPods, specify it i
 	use_frameworks!
 
 	target '<Your Target Name>' do
-    	pod 'ASMapLauncher', '~> 0.0.4'
+    	pod 'ASMapLauncher', '1.0'
 	end
 
 Then, run the following command:
