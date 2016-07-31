@@ -1,0 +1,6 @@
+framework module Pods_ASMapLauncherTests {
+  umbrella header "Pods-ASMapLauncherTests-umbrella.h"
+
+  export *
+  module * { export * }
+}

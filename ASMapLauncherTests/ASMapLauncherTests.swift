@@ -7,70 +7,132 @@
 //
 
 import UIKit
-import XCTest
 import MapKit
+import Quick
+import Nimble
 
-class ASMapLauncherTests: XCTestCase {
+class ASMapLauncherTests: QuickSpec {
     
-    private var mapLauncher: ASMapLauncher!
-    
-    override func setUp() {
-        super.setUp()
-        // Put setup code here. This method is called before the invocation of each test method in the class.
-        
-        mapLauncher = ASMapLauncher()
-    }
-    
-    override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-        mapLauncher = nil
-        
-        super.tearDown()
-    }
-    
-    func testUrlPrefixForMapApp() {
-        let mapAppType: ASMapApp! = ASMapApp.ASMapAppAppleMaps
-        XCTAssertNotNil(mapAppType.rawValue, "Map app value can not be nil")
-        
-        let urlPrefix = mapLauncher.urlPrefixForMapApp(mapAppType)
-        XCTAssertNotNil(urlPrefix, "Url prefix can not be nil")
-    }
-    
-    func testIsMapAppInstalled() {
-        let mapAppType: ASMapApp! = ASMapApp.ASMapAppAppleMaps
-        XCTAssertNotNil(mapAppType.rawValue, "Map app value can not be nil")
-        
-        let isMapAppInstalled = mapLauncher.isMapAppInstalled(mapAppType)
-        XCTAssertTrue(isMapAppInstalled, "Map is not installed")
-    }
-    
-    func testGoogleMapsString() {
-        let mapAppType: ASMapApp! = ASMapApp.ASMapAppAppleMaps
-        XCTAssertNotNil(mapAppType.rawValue, "Map app value can not be nil")
-        
-        let location: CLLocation! = CLLocation(latitude: 41.0053215, longitude: 29.0121795)
-        let mapPoint: ASMapPoint! = ASMapPoint(location: location, name: "", address: "")
-        
-        let googleMapsString = mapLauncher.googleMapsString(mapPoint)
-        XCTAssertNotNil(googleMapsString, "Google map string failed")
-    }
-    
-    func testUrlEncode() {
-        let stringToEncode = "stringToEncode"
-        XCTAssertNotNil(stringToEncode, "Url Encode needs not nil string value")
-        
-        let encodedString  = mapLauncher.urlEncode(stringToEncode)
-        XCTAssertNotNil(encodedString, "Encoded string failed")
-    }
-    
-    func testGetMapApps() {
-        XCTAssertNotNil(mapLauncher.getMapApps(), "Getting map apps failed")
-    }
-    
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measureBlock() {
-            // Put the code you want to measure the time of here.
+    override func spec() {
+        describe("Map Launcher") {
+            var mapLauncher: ASMapLauncher!
+            beforeEach {
+                mapLauncher = ASMapLauncher()
+            }
+            context("Check initialization") {
+                it("if success") {
+                    expect(mapLauncher).notTo(beNil())
+                }
+            }
+            context("Check url prefix") {
+                it("for Apple Maps") {
+                    let mapAppType: ASMapApp! = ASMapApp.ASMapAppAppleMaps
+                    expect(mapAppType).notTo(beNil())
+                    let urlPrefix = mapLauncher.urlPrefixForMapApp(mapAppType)
+                    expect(urlPrefix).notTo(beNil())
+                    expect(urlPrefix).to(equal(""))
+                }
+                it("for HERE Maps") {
+                    let mapAppType: ASMapApp! = ASMapApp.ASMapAppHEREMaps
+                    expect(mapAppType).notTo(beNil())
+                    let urlPrefix = mapLauncher.urlPrefixForMapApp(mapAppType)
+                    expect(urlPrefix).notTo(beNil())
+                    expect(urlPrefix).to(equal("here-route://"))
+                }
+                it("for Google Maps") {
+                    let mapAppType: ASMapApp! = ASMapApp.ASMapAppGoogleMaps
+                    expect(mapAppType).notTo(beNil())
+                    let urlPrefix = mapLauncher.urlPrefixForMapApp(mapAppType)
+                    expect(urlPrefix).notTo(beNil())
+                    expect(urlPrefix).to(equal("comgooglemaps://"))
+                }
+                it("for Yandex Navigator") {
+                    let mapAppType: ASMapApp! = ASMapApp.ASMapAppYandexNavigator
+                    expect(mapAppType).notTo(beNil())
+                    let urlPrefix = mapLauncher.urlPrefixForMapApp(mapAppType)
+                    expect(urlPrefix).notTo(beNil())
+                    expect(urlPrefix).to(equal("yandexnavi://"))
+                }
+                it("for CityMapper") {
+                    let mapAppType: ASMapApp! = ASMapApp.ASMapAppCitymapper
+                    expect(mapAppType).notTo(beNil())
+                    let urlPrefix = mapLauncher.urlPrefixForMapApp(mapAppType)
+                    expect(urlPrefix).notTo(beNil())
+                    expect(urlPrefix).to(equal("citymapper://"))
+                }
+                it("for Navigon") {
+                    let mapAppType: ASMapApp! = ASMapApp.ASMapAppNavigon
+                    expect(mapAppType).notTo(beNil())
+                    let urlPrefix = mapLauncher.urlPrefixForMapApp(mapAppType)
+                    expect(urlPrefix).notTo(beNil())
+                    expect(urlPrefix).to(equal("navigon://"))
+                }
+                it("for Transit") {
+                    let mapAppType: ASMapApp! = ASMapApp.ASMapAppTheTransitApp
+                    expect(mapAppType).notTo(beNil())
+                    let urlPrefix = mapLauncher.urlPrefixForMapApp(mapAppType)
+                    expect(urlPrefix).notTo(beNil())
+                    expect(urlPrefix).to(equal("transit://"))
+                }
+                it("for Wazer") {
+                    let mapAppType: ASMapApp! = ASMapApp.ASMapAppWaze
+                    expect(mapAppType).notTo(beNil())
+                    let urlPrefix = mapLauncher.urlPrefixForMapApp(mapAppType)
+                    expect(urlPrefix).notTo(beNil())
+                    expect(urlPrefix).to(equal("waze://"))
+                }
+            }
+            context("Check if Map installed") {
+                it("for Apple Maps") {
+                    expect(mapLauncher.isMapAppInstalled(ASMapApp.ASMapAppAppleMaps)).to(equal(true))
+                }
+            }
+            context("Check prepared string") {
+                it("for Google Maps when all params are valid") {
+                    let mapPoint = ASMapPoint(location: CLLocation(latitude: 10.0, longitude: 10.0), name: "TestName", address: "TestAddress")
+                    let preparedString = mapLauncher.googleMapsString(mapPoint)
+                    expect(preparedString).to(equal(("10.000000,10.000000+(TestName)")))
+                }
+                it("for Google Maps when location is not valid") {
+                    let mapPoint = ASMapPoint(location: CLLocation(latitude: -9999.99, longitude: -9999.00), name: "TestName", address: "TestAddress")
+                    let preparedString = mapLauncher.googleMapsString(mapPoint)
+                    expect(preparedString).to(equal(("")))
+                }
+                it("for Google Maps when name is empty") {
+                    let mapPoint = ASMapPoint(location: CLLocation(latitude: 10.0, longitude: 10.0), name: "", address: "TestAddress")
+                    let preparedString = mapLauncher.googleMapsString(mapPoint)
+                    expect(preparedString).to(equal(("10.000000,10.000000")))
+                }
+            }
+            context("Check url encode") {
+                it("for simple url") {
+                    let encodedUrl = mapLauncher.urlEncode("http://github.com/abdullahselek")
+                    expect(encodedUrl).to(equal("http://github.com/abdullahselek"))
+                }
+            }
+            context("Check available maps") {
+                it("for Simulator") {
+                    let apps = mapLauncher.getMapApps()
+                    expect(apps).notTo(beNil())
+                    expect(apps).to(haveCount(1))
+                }
+            }
+            context("Check launch map app") {
+                var fromPoint: ASMapPoint!
+                var toPoint: ASMapPoint!
+                beforeEach {
+                    fromPoint = ASMapPoint(location: CLLocation(latitude: 10.0, longitude: 10.0), name: "FromName", address: "fromAddress")
+                    toPoint = ASMapPoint(location: CLLocation(latitude: 20.0, longitude: 20.0), name: "ToName", address: "ToAddress")
+                }
+                it("for Apple Maps") {
+                    let mapApp = ASMapApp.ASMapAppAppleMaps
+                    expect(mapLauncher.launchMapApp(mapApp, fromDirections: fromPoint, toDirection: toPoint)).to(equal(true))
+                }
+                it("for HERE Maps") {
+                    let mapApp = ASMapApp.ASMapAppHEREMaps
+                    expect(mapLauncher.launchMapApp(mapApp, fromDirections: fromPoint, toDirection: toPoint)).to(equal(false))
+                }
+            }
         }
     }
     
