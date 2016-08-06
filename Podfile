@@ -3,7 +3,6 @@ platform :ios, '8.0'
 def testing_pods
     pod 'Quick'
     pod 'Nimble'
-    pod 'OCMock', '~> 3.3'
 end
 
 target 'ASMapLauncher' do
