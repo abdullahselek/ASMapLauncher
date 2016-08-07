@@ -9,4 +9,4 @@ branches:
  - master
 
 script:
-- xcodebuild clean build test -workspace ASMapLauncher.xcworkspace -scheme ASMapLauncherTests
+- xcodebuild -workspace ASMapLauncher.xcworkspace -scheme ASMapLauncherTests -sdk iphonesimulator9.0 -configuration Debug clean build
