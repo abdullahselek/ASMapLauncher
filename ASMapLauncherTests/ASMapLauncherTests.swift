@@ -86,6 +86,9 @@ class ASMapLauncherTests: QuickSpec {
                 it("for Apple Maps") {
                     expect(mapLauncher.isMapAppInstalled(ASMapApp.ASMapAppAppleMaps)).to(equal(true))
                 }
+                it("for unavailable map") {
+                    expect(mapLauncher.isMapAppInstalled(ASMapApp.ASMapAppHEREMaps)).to(equal(false))
+                }
             }
             context("Check prepared string") {
                 it("for Google Maps when all params are valid") {
@@ -129,10 +132,63 @@ class ASMapLauncherTests: QuickSpec {
                     expect(mapLauncher.launchMapApp(mapApp, fromDirections: fromPoint, toDirection: toPoint)).to(equal(true))
                 }
                 it("for HERE Maps") {
+                    mapLauncher.application = MockApplication()
                     let mapApp = ASMapApp.ASMapAppHEREMaps
+                    mapLauncher.isMapAppInstalled(mapApp)
+                    expect(mapLauncher.launchMapApp(mapApp, fromDirections: fromPoint, toDirection: toPoint)).to(equal(true))
+                }
+                it("for Google Maps") {
+                    mapLauncher.application = MockApplication()
+                    let mapApp = ASMapApp.ASMapAppGoogleMaps
+                    mapLauncher.isMapAppInstalled(mapApp)
+                    expect(mapLauncher.launchMapApp(mapApp, fromDirections: fromPoint, toDirection: toPoint)).to(equal(true))
+                }
+                it("for Yandex Navigator") {
+                    mapLauncher.application = MockApplication()
+                    let mapApp = ASMapApp.ASMapAppYandexNavigator
+                    mapLauncher.isMapAppInstalled(mapApp)
+                    expect(mapLauncher.launchMapApp(mapApp, fromDirections: fromPoint, toDirection: toPoint)).to(equal(true))
+                }
+                it("for City Mapper") {
+                    mapLauncher.application = MockApplication()
+                    let mapApp = ASMapApp.ASMapAppCitymapper
+                    mapLauncher.isMapAppInstalled(mapApp)
+                    expect(mapLauncher.launchMapApp(mapApp, fromDirections: fromPoint, toDirection: toPoint)).to(equal(true))
+                }
+                it("for Navigon") {
+                    mapLauncher.application = MockApplication()
+                    let mapApp = ASMapApp.ASMapAppNavigon
+                    mapLauncher.isMapAppInstalled(mapApp)
+                    expect(mapLauncher.launchMapApp(mapApp, fromDirections: fromPoint, toDirection: toPoint)).to(equal(true))
+                }
+                it("for Transit") {
+                    mapLauncher.application = MockApplication()
+                    let mapApp = ASMapApp.ASMapAppTheTransitApp
+                    mapLauncher.isMapAppInstalled(mapApp)
+                    expect(mapLauncher.launchMapApp(mapApp, fromDirections: fromPoint, toDirection: toPoint)).to(equal(true))
+                }
+                it("for Waze") {
+                    mapLauncher.application = MockApplication()
+                    let mapApp = ASMapApp.ASMapAppWaze
+                    mapLauncher.isMapAppInstalled(mapApp)
+                    expect(mapLauncher.launchMapApp(mapApp, fromDirections: fromPoint, toDirection: toPoint)).to(equal(true))
+                }
+                it("for HERE Maps when not installed") {
+                    let mapApp = ASMapApp.ASMapAppHEREMaps
+                    mapLauncher.isMapAppInstalled(mapApp)
                     expect(mapLauncher.launchMapApp(mapApp, fromDirections: fromPoint, toDirection: toPoint)).to(equal(false))
                 }
             }
+        }
+    }
+    
+    class MockApplication: UIApplicationProtocol {
+        func openURL(url: NSURL) -> Bool {
+            return true
+        }
+        
+        func canOpenURL(url: NSURL) -> Bool {
+            return true
         }
     }
     
