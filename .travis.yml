@@ -9,4 +9,4 @@ branches:
  - master
 
 script:
-- xcodebuild -workspace ASMapLauncher.xcworkspace -scheme ASMapLauncherTests -destination "platform=iOS Simulator,name=iPhone 6,OS=9.0" clean test
+- xcodebuild -workspace ASMapLauncher.xcworkspace -scheme ASMapLauncher -destination "platform=iOS Simulator,name=iPhone 6,OS=9.0" clean test
