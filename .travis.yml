@@ -1,7 +1,13 @@
-language: ruby
-rvm:
- - 2.2
- - jruby
- - rbx-2
-# uncomment and edit the following line if your project needs to run something other than `rake`:
-# script: bundle exec rspec spec
+language: swift
+
+branches:
+ only:
+ - master
+
+xcode_project: ASMapLauncher.xcodeproj
+xcode_scheme: ASMapLauncherTests
+osx_image: xcode7.3
+xcode_sdk: iphonesimulator9.0
+
+script:
+- xcodebuild clean build test -project ASMapLauncher.xcodeproj -scheme ASMapLauncherTests
