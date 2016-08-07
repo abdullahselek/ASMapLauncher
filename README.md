@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/abdullahselek/ASMapLauncher.svg?branch=master)]
+![Build Status](https://travis-ci.org/abdullahselek/ASMapLauncher.svg?branch=master)
 
 # ASMapLauncher
 ASMapLauncher is a library for iOS written in Swift that helps navigation with various mapping applications.
