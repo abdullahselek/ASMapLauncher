@@ -8,5 +8,13 @@ branches:
  only:
  - master
 
+before_install:
+- rm -rf /Users/travis/Library/Developer/Xcode/DerivedData/ForceTouchActions-*/
+- rvm use $RVM_RUBY_VERSION
+
+install: bundle
+
 script:
-- xcodebuild -workspace ASMapLauncher.xcworkspace -scheme ASMapLauncher -destination "platform=iOS Simulator,name=iPhone 6,OS=9.0" clean test
+- xcodebuild -workspace ASMapLauncher.xcworkspace -scheme ASMapLauncher -destination "platform=iOS Simulator,name=iPhone 6,OS=9.3" clean test
+
+after_success: slather
