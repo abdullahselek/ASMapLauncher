@@ -48,17 +48,17 @@ public enum ASMapApp : String {
 /**
   * Launcher class
  */
-public class ASMapLauncher {
+open class ASMapLauncher {
     
     /**
       * UIApplication used for deep linking
      */
-    var application: UIApplicationProtocol = UIApplication.sharedApplication()
+    var application: UIApplicationProtocol = UIApplication.shared
     
     /**
       * Holds available map applications
      */
-    private var availableMapApps: NSMutableArray! = NSMutableArray()
+    fileprivate var availableMapApps: NSMutableArray! = NSMutableArray()
     
     /**
       * Initiliaze Map Launcher
@@ -72,10 +72,10 @@ public class ASMapLauncher {
     /**
       * Prepares available navigation apps installed on device
      */
-    private func getAvailableNavigationApps() {
+    fileprivate func getAvailableNavigationApps() {
         for type in ASMapApp.allValues {
             if isMapAppInstalled(type) {
-                availableMapApps.addObject(type.rawValue)
+                availableMapApps.add(type.rawValue)
             }
         }
     }
@@ -87,7 +87,7 @@ public class ASMapLauncher {
       *
       * @return Url Prefix
      */
-    public func urlPrefixForMapApp(mapApp: ASMapApp) -> String {
+    open func urlPrefixForMapApp(_ mapApp: ASMapApp) -> String {
         switch(mapApp) {
         case .ASMapAppHEREMaps:
             return "here-route://"
@@ -115,13 +115,13 @@ public class ASMapLauncher {
       *
       * @return Bool installed or not
      */
-    public func isMapAppInstalled(mapApp: ASMapApp) -> Bool {
+    open func isMapAppInstalled(_ mapApp: ASMapApp) -> Bool {
         if mapApp == .ASMapAppAppleMaps {
             return true
         }
         
         let urlPrefix: String = urlPrefixForMapApp(mapApp)
-        return application.canOpenURL(NSURL(string: urlPrefix)!)
+        return application.canOpenURL(URL(string: urlPrefix)!)
     }
 
     /**
@@ -130,72 +130,69 @@ public class ASMapLauncher {
       * @param mapApp ASMapApp
       * @param fromDirections ASMapPoint
       * @param toDirection ASMapPoint
-      *
-      * @return Launched or not
      */
-    public func launchMapApp(mapApp: ASMapApp, fromDirections: ASMapPoint!, toDirection: ASMapPoint!) -> Bool {
+    open func launchMapApp(_ mapApp: ASMapApp, fromDirections: ASMapPoint!, toDirection: ASMapPoint!) -> Bool {
         if !isMapAppInstalled(mapApp) {
             return false
         }
-        
+        var url: String!
         switch(mapApp) {
         case .ASMapAppAppleMaps:
-            let url: String = NSString(format: "http://maps.apple.com/?saddr=%@&daddr=%@&z=14", googleMapsString(fromDirections), googleMapsString(toDirection)) as String
-            return application.openURL(NSURL(string: url)!)
+            url = NSString(format: "http://maps.apple.com/?saddr=%@&daddr=%@&z=14", googleMapsString(fromDirections), googleMapsString(toDirection)) as String
         case .ASMapAppHEREMaps:
-            let url: String = NSString(format: "here-route://%f,%f,%@/%f,%f,%@", fromDirections.location.coordinate.latitude, fromDirections.location.coordinate.longitude, fromDirections.name, toDirection.location.coordinate.latitude, toDirection.location.coordinate.longitude, toDirection.name) as String
-            return application.openURL(NSURL(string: url)!)
+            url = NSString(format: "here-route://%f,%f,%@/%f,%f,%@", fromDirections.location.coordinate.latitude, fromDirections.location.coordinate.longitude, fromDirections.name, toDirection.location.coordinate.latitude, toDirection.location.coordinate.longitude, toDirection.name) as String
         case .ASMapAppGoogleMaps:
-            let url: String = NSString(format: "comgooglemaps://?saddr=%@&daddr=%@", googleMapsString(fromDirections), googleMapsString(toDirection)) as String
-            return application.openURL(NSURL(string: url)!)
+            url = NSString(format: "comgooglemaps://?saddr=%@&daddr=%@", googleMapsString(fromDirections), googleMapsString(toDirection)) as String
         case .ASMapAppYandexNavigator:
-            let url: String = NSString(format: "yandexnavi://build_route_on_map?lat_to=%f&lon_to=%f&lat_from=%f&lon_from=%f",
+            url = NSString(format: "yandexnavi://build_route_on_map?lat_to=%f&lon_to=%f&lat_from=%f&lon_from=%f",
                 toDirection.location.coordinate.latitude, toDirection.location.coordinate.longitude, fromDirections.location.coordinate.latitude, fromDirections.location.coordinate.longitude) as String
-            return application.openURL(NSURL(string: url)!)
         case .ASMapAppCitymapper:
             let params: NSMutableArray! = NSMutableArray(capacity: 10)
             if CLLocationCoordinate2DIsValid(fromDirections.location.coordinate) {
-                params.addObject(NSString(format: "startcoord=%f,%f", fromDirections.location.coordinate.latitude, fromDirections.location.coordinate.longitude))
+                params.add(NSString(format: "startcoord=%f,%f", fromDirections.location.coordinate.latitude, fromDirections.location.coordinate.longitude))
                 if !fromDirections.name.isEmpty {
-                    params.addObject(NSString(format: "startname=%@", urlEncode(fromDirections.name)))
+                    params.add(NSString(format: "startname=%@", urlEncode(fromDirections.name as NSString)))
                 }
                 if !fromDirections.address.isEmpty {
-                    params.addObject(NSString(format: "startaddress=%@", urlEncode(fromDirections.address)))
+                    params.add(NSString(format: "startaddress=%@", urlEncode(fromDirections.address as NSString)))
                 }
             }
             if CLLocationCoordinate2DIsValid(toDirection.location.coordinate) {
-                params.addObject(NSString(format: "endcoord=%f,%f", toDirection.location.coordinate.latitude, toDirection.location.coordinate.longitude))
+                params.add(NSString(format: "endcoord=%f,%f", toDirection.location.coordinate.latitude, toDirection.location.coordinate.longitude))
                 if !toDirection.name.isEmpty {
-                    params.addObject(NSString(format: "endname=%@", urlEncode(toDirection.name)))
+                    params.add(NSString(format: "endname=%@", urlEncode(toDirection.name as NSString)))
                 }
                 if !toDirection.address.isEmpty {
-                    params.addObject(NSString(format: "endaddress=%@", urlEncode(toDirection.address)))
+                    params.add(NSString(format: "endaddress=%@", urlEncode(toDirection.address as NSString)))
                 }
             }
             
-            let url: String = NSString(format: "citymapper://directions?%@", params.componentsJoinedByString("&")) as String
-            return application.openURL(NSURL(string: url)!)
+            url = NSString(format: "citymapper://directions?%@", params.componentsJoined(by: "&")) as String
         case .ASMapAppNavigon:
             var name: String = "Destination"
             if !toDirection.name.isEmpty {
                 name = toDirection.name
             }
             
-            let url: String = NSString(format: "navigon://coordinate/%@/%f/%f", urlEncode(name), toDirection.location.coordinate.longitude, toDirection.location.coordinate.latitude) as String
-            return application.openURL(NSURL(string: url)!)
+            url = NSString(format: "navigon://coordinate/%@/%f/%f", urlEncode(name as NSString), toDirection.location.coordinate.longitude, toDirection.location.coordinate.latitude) as String
         case .ASMapAppTheTransitApp:
             let params = NSMutableArray(capacity: 2)
             if fromDirections != nil {
-                params.addObject(NSString(format: "from=%f,%f", fromDirections.location.coordinate.latitude, fromDirections.location.coordinate.longitude))
+                params.add(NSString(format: "from=%f,%f", fromDirections.location.coordinate.latitude, fromDirections.location.coordinate.longitude))
             }
             if toDirection != nil {
-                params.addObject(NSString(format: "to=%f,%f", toDirection.location.coordinate.latitude, toDirection.location.coordinate.longitude))
+                params.add(NSString(format: "to=%f,%f", toDirection.location.coordinate.latitude, toDirection.location.coordinate.longitude))
             }
-            let url: String = NSString(format: "transit://directions?%@", params.componentsJoinedByString("&")) as String
-            return application.openURL(NSURL(string: url)!)
+            url = NSString(format: "transit://directions?%@", params.componentsJoined(by: "&")) as String
         case .ASMapAppWaze:
-            let url: String = NSString(format: "waze://?ll=%f,%f&navigate=yes", toDirection.location.coordinate.latitude, toDirection.location.coordinate.longitude) as String
-            return application.openURL(NSURL(string: url)!)
+            url = NSString(format: "waze://?ll=%f,%f&navigate=yes", toDirection.location.coordinate.latitude, toDirection.location.coordinate.longitude) as String
+        }
+        if #available(iOS 10.0, *) {
+            application.open(URL(string: url)!, options: [:], completionHandler: nil)
+            return true
+        } else {
+            let isOpened = application.openURL(URL(string: url)!)
+            return isOpened
         }
     }
     
@@ -206,13 +203,13 @@ public class ASMapLauncher {
       *
       * @return Deeplink url
      */
-    func googleMapsString(mapPoint: ASMapPoint) -> NSString {
+    func googleMapsString(_ mapPoint: ASMapPoint) -> NSString {
         if !CLLocationCoordinate2DIsValid(mapPoint.location.coordinate) {
             return ""
         }
         
         if !mapPoint.name.isEmpty {
-            let encodedName = mapPoint.name.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())
+            let encodedName = mapPoint.name.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)
             return NSString(format: "%f,%f+(%@)", mapPoint.location.coordinate.latitude, mapPoint.location.coordinate.longitude, encodedName!)
         }
         
@@ -226,8 +223,8 @@ public class ASMapLauncher {
       *
       * @return Encoded name
      */
-    func urlEncode(name: NSString) -> NSString {
-        return name.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())!
+    func urlEncode(_ name: NSString) -> NSString {
+        return name.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)! as NSString
     }
     
     // MARK: Map Apps Getter
@@ -246,7 +243,7 @@ public class ASMapLauncher {
 /**
   * Point class used for deep linking
  */
-public class ASMapPoint: NSObject {
+open class ASMapPoint: NSObject {
     
     /**
       * Location value for navigation
@@ -288,12 +285,18 @@ protocol UIApplicationProtocol {
     /**
       * Open given url
      */
-    func openURL(url: NSURL) -> Bool
+    func openURL(_ url: URL) -> Bool
     
     /**
       * Checks if given url can be opened
      */
-    func canOpenURL(url: NSURL) -> Bool
+    func canOpenURL(_ url: URL) -> Bool
+    
+    /**
+      * Open given url for iOS 10+
+     */
+    @available(iOS 10.0, *)
+    func open(_ url: URL, options: [String : Any], completionHandler completion: ((Bool) -> Swift.Void)?)
 }
 
 /**

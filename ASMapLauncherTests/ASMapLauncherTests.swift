@@ -134,48 +134,48 @@ class ASMapLauncherTests: QuickSpec {
                 it("for HERE Maps") {
                     mapLauncher.application = MockApplication()
                     let mapApp = ASMapApp.ASMapAppHEREMaps
-                    mapLauncher.isMapAppInstalled(mapApp)
+                    expect(mapLauncher.isMapAppInstalled(mapApp)).to(beTrue())
                     expect(mapLauncher.launchMapApp(mapApp, fromDirections: fromPoint, toDirection: toPoint)).to(equal(true))
                 }
                 it("for Google Maps") {
                     mapLauncher.application = MockApplication()
                     let mapApp = ASMapApp.ASMapAppGoogleMaps
-                    mapLauncher.isMapAppInstalled(mapApp)
+                    expect(mapLauncher.isMapAppInstalled(mapApp)).to(beTrue())
                     expect(mapLauncher.launchMapApp(mapApp, fromDirections: fromPoint, toDirection: toPoint)).to(equal(true))
                 }
                 it("for Yandex Navigator") {
                     mapLauncher.application = MockApplication()
                     let mapApp = ASMapApp.ASMapAppYandexNavigator
-                    mapLauncher.isMapAppInstalled(mapApp)
+                    expect(mapLauncher.isMapAppInstalled(mapApp)).to(beTrue())
                     expect(mapLauncher.launchMapApp(mapApp, fromDirections: fromPoint, toDirection: toPoint)).to(equal(true))
                 }
                 it("for City Mapper") {
                     mapLauncher.application = MockApplication()
                     let mapApp = ASMapApp.ASMapAppCitymapper
-                    mapLauncher.isMapAppInstalled(mapApp)
+                    expect(mapLauncher.isMapAppInstalled(mapApp)).to(beTrue())
                     expect(mapLauncher.launchMapApp(mapApp, fromDirections: fromPoint, toDirection: toPoint)).to(equal(true))
                 }
                 it("for Navigon") {
                     mapLauncher.application = MockApplication()
                     let mapApp = ASMapApp.ASMapAppNavigon
-                    mapLauncher.isMapAppInstalled(mapApp)
+                    expect(mapLauncher.isMapAppInstalled(mapApp)).to(beTrue())
                     expect(mapLauncher.launchMapApp(mapApp, fromDirections: fromPoint, toDirection: toPoint)).to(equal(true))
                 }
                 it("for Transit") {
                     mapLauncher.application = MockApplication()
                     let mapApp = ASMapApp.ASMapAppTheTransitApp
-                    mapLauncher.isMapAppInstalled(mapApp)
+                    expect(mapLauncher.isMapAppInstalled(mapApp)).to(beTrue())
                     expect(mapLauncher.launchMapApp(mapApp, fromDirections: fromPoint, toDirection: toPoint)).to(equal(true))
                 }
                 it("for Waze") {
                     mapLauncher.application = MockApplication()
                     let mapApp = ASMapApp.ASMapAppWaze
-                    mapLauncher.isMapAppInstalled(mapApp)
+                    expect(mapLauncher.isMapAppInstalled(mapApp)).to(beTrue())
                     expect(mapLauncher.launchMapApp(mapApp, fromDirections: fromPoint, toDirection: toPoint)).to(equal(true))
                 }
                 it("for HERE Maps when not installed") {
                     let mapApp = ASMapApp.ASMapAppHEREMaps
-                    mapLauncher.isMapAppInstalled(mapApp)
+                    expect(mapLauncher.isMapAppInstalled(mapApp)).to(beFalse())
                     expect(mapLauncher.launchMapApp(mapApp, fromDirections: fromPoint, toDirection: toPoint)).to(equal(false))
                 }
             }
@@ -183,11 +183,18 @@ class ASMapLauncherTests: QuickSpec {
     }
     
     class MockApplication: UIApplicationProtocol {
-        func openURL(url: NSURL) -> Bool {
+        /**
+          * Open given url for iOS 10+
+         */
+        internal func open(_ url: URL, options: [String : Any], completionHandler completion: ((Bool) -> Void)?) {
+            
+        }
+
+        func openURL(_ url: URL) -> Bool {
             return true
         }
         
-        func canOpenURL(url: NSURL) -> Bool {
+        func canOpenURL(_ url: URL) -> Bool {
             return true
         }
     }

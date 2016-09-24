@@ -12,13 +12,13 @@ import MapKit
 class ViewController: UIViewController, UIActionSheetDelegate, CLLocationManagerDelegate {
     
     // map launcher
-    private var mapLauncher: ASMapLauncher!
-    private var mapApps: NSMutableArray!
+    fileprivate var mapLauncher: ASMapLauncher!
+    fileprivate var mapApps: NSMutableArray!
     
     // location manager
-    private var locationManager: CLLocationManager = CLLocationManager()
+    fileprivate var locationManager: CLLocationManager = CLLocationManager()
     // current coordinate
-    private var currenctCoordinate: CLLocationCoordinate2D!
+    fileprivate var currenctCoordinate: CLLocationCoordinate2D!
     
     // ui compononents
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
@@ -45,16 +45,16 @@ class ViewController: UIViewController, UIActionSheetDelegate, CLLocationManager
         self.mapApps = mapLauncher.getMapApps()
         let actionSheet = UIActionSheet(title: "Choose your app for navigation", delegate: self, cancelButtonTitle: nil, destructiveButtonTitle: nil)
         for mapApp in self.mapApps {
-            actionSheet.addButtonWithTitle(mapApp as? String)
+            actionSheet.addButton(withTitle: mapApp as? String)
         }
-        actionSheet.addButtonWithTitle("Cancel")
+        actionSheet.addButton(withTitle: "Cancel")
         actionSheet.cancelButtonIndex = mapApps.count
-        actionSheet.showInView(self.view)
+        actionSheet.show(in: self.view)
     }
 
     // MARK: ActionSheet Delegates
     
-    func actionSheet(actionSheet: UIActionSheet, clickedButtonAtIndex buttonIndex: Int) {
+    func actionSheet(_ actionSheet: UIActionSheet, clickedButtonAt buttonIndex: Int) {
         if buttonIndex == actionSheet.numberOfButtons - 1 {
             return
         }
@@ -90,19 +90,19 @@ class ViewController: UIViewController, UIActionSheetDelegate, CLLocationManager
     
     // MARK: Location Manager delegates
     
-    func locationManager(manager: CLLocationManager,
-        didChangeAuthorizationStatus status: CLAuthorizationStatus) {
+    func locationManager(_ manager: CLLocationManager,
+        didChangeAuthorization status: CLAuthorizationStatus) {
             switch status {
-            case CLAuthorizationStatus.Restricted, CLAuthorizationStatus.Denied, CLAuthorizationStatus.NotDetermined:
+            case CLAuthorizationStatus.restricted, CLAuthorizationStatus.denied, CLAuthorizationStatus.notDetermined:
                 locationManager.requestWhenInUseAuthorization()
                 break
-            case CLAuthorizationStatus.AuthorizedAlways, CLAuthorizationStatus.AuthorizedWhenInUse:
+            case CLAuthorizationStatus.authorizedAlways, CLAuthorizationStatus.authorizedWhenInUse:
                 startUpdatingLocation()
                 break
             }
     }
     
-    func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         let locationArray = locations as NSArray
         let locationObj = locationArray.lastObject as! CLLocation
         let coordinate = locationObj.coordinate
@@ -112,7 +112,7 @@ class ViewController: UIViewController, UIActionSheetDelegate, CLLocationManager
         self.enableIndicator(false)
     }
     
-    func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         locationManager.stopUpdatingLocation()
 
     }
@@ -130,7 +130,7 @@ class ViewController: UIViewController, UIActionSheetDelegate, CLLocationManager
 
     // MARK: Button Action
     
-    @IBAction func navigationBtnTapped(sender: AnyObject) {
+    @IBAction func navigationBtnTapped(_ sender: AnyObject) {
         /*** show all available mapping actions ***/
         showNavigationSheet()
         
@@ -147,16 +147,16 @@ class ViewController: UIViewController, UIActionSheetDelegate, CLLocationManager
     
     // MARK: Activity Indicator
     
-    func enableIndicator(enable: Bool) {
-        dispatch_async(dispatch_get_main_queue(), { () -> Void in
+    func enableIndicator(_ enable: Bool) {
+        DispatchQueue.main.async(execute: { () -> Void in
             if enable {
-                self.activityIndicator.hidden = false
+                self.activityIndicator.isHidden = false
                 self.activityIndicator.startAnimating()
             } else {
-                self.activityIndicator.hidden = true
+                self.activityIndicator.isHidden = true
                 self.activityIndicator.stopAnimating()
                 
-                self.navigationBtn.hidden = false
+                self.navigationBtn.isHidden = false
             }
         })
     }
