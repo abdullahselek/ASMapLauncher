@@ -46,6 +46,7 @@
 		<string>navigon</string>
 		<string>transit</string>
 		<string>waze</string>
+		<string>here-route</string>
 	</array>
 </dict>
 </plist>
