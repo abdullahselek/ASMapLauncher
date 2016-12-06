@@ -1,5 +1,6 @@
 ![Build Status](https://travis-ci.org/abdullahselek/ASMapLauncher.svg?branch=master)
 ![CocoaPods Compatible](https://img.shields.io/cocoapods/v/ASMapLauncher.svg)
+[![Carthage Compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 
 # ASMapLauncher
 ASMapLauncher is a library for iOS written in Swift that helps navigation with various mapping applications.
@@ -26,6 +27,25 @@ To integrate ASMapLauncher into your Xcode project using CocoaPods, specify it i
 Then, run the following command:
 
 	$ pod install
+
+# Carthage
+
+Carthage is a decentralized dependency manager that builds your dependencies and provides you with binary frameworks.
+
+You can install Carthage with Homebrew using the following command:
+
+```
+brew update
+brew install carthage
+```
+
+To integrate ASMapLauncher into your Xcode project using Carthage, specify it in your Cartfile:
+
+```
+github "abdullahselek/ASMapLauncher" ~> 1.0.3
+```
+
+Run carthage update to build the framework and drag the built ASMapLauncher.framework into your Xcode project.
 
 # Usage
 
