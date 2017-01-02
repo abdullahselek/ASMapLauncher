@@ -47,6 +47,7 @@
 		<string>transit</string>
 		<string>waze</string>
 		<string>here-route</string>
+		<string>moovit</string>
 	</array>
 </dict>
 </plist>

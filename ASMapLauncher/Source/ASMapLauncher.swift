@@ -40,9 +40,10 @@ public enum ASMapApp : String {
     ASMapAppCitymapper = "Citymapper",
     ASMapAppNavigon = "Navigon",
     ASMapAppTheTransitApp = "The Transit App",
-    ASMapAppWaze = "Waze"
+    ASMapAppWaze = "Waze",
+    ASMapAppMoovit = "Moovit"
     
-    static let allValues = [ASMapAppAppleMaps, ASMapAppHEREMaps, ASMapAppGoogleMaps, ASMapAppYandexNavigator, ASMapAppCitymapper, ASMapAppNavigon, ASMapAppTheTransitApp, ASMapAppWaze]
+    static let allValues = [ASMapAppAppleMaps, ASMapAppHEREMaps, ASMapAppGoogleMaps, ASMapAppYandexNavigator, ASMapAppCitymapper, ASMapAppNavigon, ASMapAppTheTransitApp, ASMapAppWaze, ASMapAppMoovit]
 }
 
 /**
@@ -103,6 +104,8 @@ open class ASMapLauncher {
             return "transit://"
         case .ASMapAppWaze:
             return "waze://"
+        case .ASMapAppMoovit:
+            return "moovit://"
         default:
             return ""
         }
@@ -186,6 +189,8 @@ open class ASMapLauncher {
             url = NSString(format: "transit://directions?%@", params.componentsJoined(by: "&")) as String
         case .ASMapAppWaze:
             url = NSString(format: "waze://?ll=%f,%f&navigate=yes", toDirection.location.coordinate.latitude, toDirection.location.coordinate.longitude) as String
+        case .ASMapAppMoovit:
+            url = NSString(format: "moovit://directions?dest_lat=%f&dest_lon=%f&dest_name%@=&orig_lat=%f&orig_lon=%f&orig_name=%@&auto_run=true&partner_id=%@", toDirection.location.coordinate.latitude, toDirection.location.coordinate.longitude, urlEncode(toDirection.name as NSString), fromDirections.location.coordinate.latitude, fromDirections.location.coordinate.longitude, urlEncode(fromDirections.name as NSString), Bundle.main.object(forInfoDictionaryKey: "CFBundleName") as? String ?? "") as String
         }
         if #available(iOS 10.0, *) {
             application.open(URL(string: url)!, options: [:], completionHandler: nil)
