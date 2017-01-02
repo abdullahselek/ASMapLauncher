@@ -81,6 +81,13 @@ class ASMapLauncherTests: QuickSpec {
                     expect(urlPrefix).notTo(beNil())
                     expect(urlPrefix).to(equal("waze://"))
                 }
+                it("for Moovit") {
+                    let mapAppType: ASMapApp! = ASMapApp.ASMapAppMoovit
+                    expect(mapAppType).notTo(beNil())
+                    let urlPrefix = mapLauncher.urlPrefixForMapApp(mapAppType)
+                    expect(urlPrefix).notTo(beNil())
+                    expect(urlPrefix).to(equal("moovit://"))
+                }
             }
             context("Check if Map installed") {
                 it("for Apple Maps") {
@@ -170,6 +177,12 @@ class ASMapLauncherTests: QuickSpec {
                 it("for Waze") {
                     mapLauncher.application = MockApplication()
                     let mapApp = ASMapApp.ASMapAppWaze
+                    expect(mapLauncher.isMapAppInstalled(mapApp)).to(beTrue())
+                    expect(mapLauncher.launchMapApp(mapApp, fromDirections: fromPoint, toDirection: toPoint)).to(equal(true))
+                }
+                it("for Moovit") {
+                    mapLauncher.application = MockApplication()
+                    let mapApp = ASMapApp.ASMapAppMoovit
                     expect(mapLauncher.isMapAppInstalled(mapApp)).to(beTrue())
                     expect(mapLauncher.launchMapApp(mapApp, fromDirections: fromPoint, toDirection: toPoint)).to(equal(true))
                 }
