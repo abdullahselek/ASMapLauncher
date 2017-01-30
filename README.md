@@ -21,7 +21,7 @@ platform :ios, '8.0'
 use_frameworks!
 
 target '<Your Target Name>' do
-	pod 'ASMapLauncher', '1.0.4'
+	pod 'ASMapLauncher', '1.0.5'
 end
 ```
 Then, run the following command:
@@ -42,7 +42,7 @@ brew install carthage
 To integrate ASMapLauncher into your Xcode project using Carthage, specify it in your Cartfile:
 
 ```
-github "abdullahselek/ASMapLauncher" ~> 1.0.4
+github "abdullahselek/ASMapLauncher" ~> 1.0.5
 ```
 
 Run carthage update to build the framework and drag the built ASMapLauncher.framework into your Xcode project.
@@ -51,17 +51,25 @@ Run carthage update to build the framework and drag the built ASMapLauncher.fram
 
 First initiate ASMapLauncher and check for a selected mapping application that installed on device
 ```
-mapLauncher = ASMapLauncher()
-var isInstalled = mapLauncher.isMapAppInstalled(ASMapApp.ASMapAppHEREMaps)
+let mapLauncher = ASMapLauncher()
+let isInstalled = mapLauncher.isMapAppInstalled(.here)
 ```
+
 Then, launch selected mapping application
 ```
 if isInstalled {
-	var destination: CLLocation! = CLLocation(latitude: 41.0053215, longitude: 29.0121795)
-	var fromMapPoint: ASMapPoint! = ASMapPoint(location: CLLocation(latitude: currenctCoordinate.latitude, longitude: currenctCoordinate.longitude), name: "", address: "")
-    var toMapPoint: ASMapPoint! = ASMapPoint(location: CLLocation(latitude: destination.coordinate.latitude, longitude: destination.coordinate.longitude), name: "", address: "")
-    mapLauncher.launchMapApp(ASMapApp.ASMapAppGoogleMaps, fromDirections: fromMapPoint, toDirection: toMapPoint)
+	let destination: CLLocation! = CLLocation(latitude: 41.0053215, longitude: 29.0121795)
+	let fromMapPoint: MapPoint! = MapPoint(location: CLLocation(latitude: currenctCoordinate.latitude, 	    longitude: currenctCoordinate.longitude), 
+										   name: "", 
+										   address: "")
+    let toMapPoint: MapPoint! = MapPoint(location: CLLocation(latitude: destination.coordinate.latitude, longitude: destination.coordinate.longitude), 
+                                         name: "", 
+                                         address: "")
+    mapLauncher.launchMapApp(.here, 
+                             fromDirections: fromMapPoint, 
+                             toDirection: toMapPoint)
 }
+
 ```
 Supported mapping applications
 ```
@@ -75,6 +83,7 @@ Supported mapping applications
 - Waze
 - Moovit
 ```	
+
 ## MIT License
 ```
 Copyright (c) 2015 Abdullah Selek
