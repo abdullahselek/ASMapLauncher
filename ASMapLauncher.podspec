@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
     s.name                = 'ASMapLauncher'
-    s.version             = '1.0.4'
+    s.version             = '1.0.5'
     s.summary             = 'ASMapLauncher is a library for iOS written in Swift that helps navigation with various mapping applications'
     s.homepage            = 'https://github.com/abdullahselek/ASMapLauncher'
     s.license             = {
