@@ -30,7 +30,7 @@ import Foundation
 import MapKit
 
 /**
-  * Supported map applications
+  Supported map applications
  */
 public enum MapApp : String {
     case apple = "Apple Maps",
@@ -47,22 +47,22 @@ public enum MapApp : String {
 }
 
 /**
-  * Launcher class
+  Launcher class
  */
 public class ASMapLauncher {
     
     /**
-      * UIApplication used for deep linking
+      UIApplication used for deep linking
      */
     var application: UIApplicationProtocol = UIApplication.shared
     
     /**
-      * Holds available map applications
+      Holds available map applications
      */
     private var availableMapApps: NSMutableArray! = NSMutableArray()
     
     /**
-      * Initiliaze Map Launcher
+      Initiliaze Map Launcher
      */
     public init() {
         getAvailableNavigationApps()
@@ -71,7 +71,7 @@ public class ASMapLauncher {
     // MARK: Get Available Navigation Apps
     
     /**
-      * Prepares available navigation apps installed on device
+      Prepares available navigation apps installed on device
      */
     internal func getAvailableNavigationApps() {
         for type in MapApp.allValues {
@@ -82,11 +82,9 @@ public class ASMapLauncher {
     }
     
     /**
-      * Prepares url scheme prefix used to open app with given app type
-      *
-      * @param mapApp MapApp enum
-      *
-      * @return Url Prefix
+      Prepares url scheme prefix used to open app with given app type
+      - parameter mapApp: MapApp type
+      - returns: Url Prefix
      */
     internal func urlPrefixForMapApp(_ mapApp: MapApp) -> String {
         switch(mapApp) {
@@ -112,11 +110,9 @@ public class ASMapLauncher {
     }
     
     /**
-      * Checks if app installed with given app type
-      *
-      * @param mapApp MapApp
-      *
-      * @return Bool installed or not
+      Checks if app installed with given app type
+      - parameter mapApp: MapApp
+      - returns: Bool installed or not
      */
     public func isMapAppInstalled(_ mapApp: MapApp) -> Bool {
         if mapApp == .apple {
@@ -128,11 +124,10 @@ public class ASMapLauncher {
     }
 
     /**
-      * Launch navigation application with given app and directions
-      *
-      * @param mapApp MapApp
-      * @param fromDirections MapAppPoint
-      * @param toDirection MapAppPoint
+      Launch navigation application with given app and directions
+      - parameter mapApp: MapApp
+      - parameter fromDirections: MapPoint
+      - parameter toDirection: MapPoint
      */
     public func launchMapApp(_ mapApp: MapApp, fromDirections: MapPoint!, toDirection: MapPoint!) -> Bool {
         if !isMapAppInstalled(mapApp) {
@@ -202,11 +197,9 @@ public class ASMapLauncher {
     }
     
     /**
-      * Prepares deep linking url with given point
-      *
-      * @param mapPoint MapAppPoint
-      *
-      * @return Deeplink url
+      Prepares deep linking url with given point
+      - parameter mapPoint: MapAppPoint
+      - returns: Deeplink url
      */
     internal func googleMapsString(_ mapPoint: MapPoint) -> NSString {
         if !CLLocationCoordinate2DIsValid(mapPoint.location.coordinate) {
@@ -222,11 +215,9 @@ public class ASMapLauncher {
     }
     
     /**
-      * Encodes given string
-      *
-      * @param name NSString
-      *
-      * @return Encoded name
+      Encodes given string
+      - parameter name: NSString
+      - returns: Encoded name
      */
     internal func urlEncode(_ name: NSString) -> NSString {
         return name.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)! as NSString
@@ -235,9 +226,8 @@ public class ASMapLauncher {
     // MARK: Map Apps Getter
     
     /**
-      * Returns available navigation apps
-      *
-      * @return Map Apps
+      Returns available navigation apps
+      - returns: Map Apps
      */
     public func getMapApps() -> NSMutableArray! {
         return availableMapApps
@@ -246,31 +236,30 @@ public class ASMapLauncher {
 }
 
 /**
-  * Point class used for deep linking
+  Point class used for deep linking
  */
 public class MapPoint: NSObject {
     
     /**
-      * Location value for navigation
+      Location value for navigation
      */
     internal var location: CLLocation!
     
     /**
-      * Place name
+      Place name
      */
     internal var name: String!
     
     /**
-      * Place address
+      Place address
      */
     internal var address: String!
     
     /**
-      * Initialize point object with given parameters
-      *
-      * @param location Location belongs to place
-      * @param name Name belongs to place
-      * @param address Address belongs to place
+      Initialize point object with given parameters
+      - parameter location: Location belongs to place
+      - parameter name: Name belongs to place
+      - parameter address: Address belongs to place
      */
     public init(location: CLLocation, name: String, address: String) {
         self.location = location
@@ -283,28 +272,28 @@ public class MapPoint: NSObject {
 }
 
 /**
-  * Protocol that used for UIApplication
+  Protocol that used for UIApplication
  */
 protocol UIApplicationProtocol {
     
     /**
-      * Open given url
+      Open given url
      */
     func openURL(_ url: URL) -> Bool
     
     /**
-      * Checks if given url can be opened
+      Checks if given url can be opened
      */
     func canOpenURL(_ url: URL) -> Bool
     
     /**
-      * Open given url for iOS 10+
+      Open given url for iOS 10+
      */
     @available(iOS 10.0, *)
     func open(_ url: URL, options: [String : Any], completionHandler completion: ((Bool) -> Swift.Void)?)
 }
 
 /**
-  * Extension for UIApplication
+  Extension for UIApplication
  */
 extension UIApplication: UIApplicationProtocol {}
