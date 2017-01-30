@@ -59,7 +59,8 @@ Then, launch selected mapping application
 ```
 if isInstalled {
 	let destination: CLLocation! = CLLocation(latitude: 41.0053215, longitude: 29.0121795)
-	let fromMapPoint: MapPoint! = MapPoint(location: CLLocation(latitude: currenctCoordinate.latitude, 	    longitude: currenctCoordinate.longitude), 
+	let fromMapPoint: MapPoint! = MapPoint(location: CLLocation(latitude: currenctCoordinate.latitude,
+	longitude: currenctCoordinate.longitude),
 										   name: "", 
 										   address: "")
     let toMapPoint: MapPoint! = MapPoint(location: CLLocation(latitude: destination.coordinate.latitude, longitude: destination.coordinate.longitude), 
