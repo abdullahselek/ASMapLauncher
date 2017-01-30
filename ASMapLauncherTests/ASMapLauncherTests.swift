@@ -26,63 +26,63 @@ class ASMapLauncherTests: QuickSpec {
             }
             context("Check url prefix") {
                 it("for Apple Maps") {
-                    let mapAppType: ASMapApp! = ASMapApp.ASMapAppAppleMaps
+                    let mapAppType: MapApp! = .apple
                     expect(mapAppType).notTo(beNil())
                     let urlPrefix = mapLauncher.urlPrefixForMapApp(mapAppType)
                     expect(urlPrefix).notTo(beNil())
                     expect(urlPrefix).to(equal(""))
                 }
                 it("for HERE Maps") {
-                    let mapAppType: ASMapApp! = ASMapApp.ASMapAppHEREMaps
+                    let mapAppType: MapApp! = .here
                     expect(mapAppType).notTo(beNil())
                     let urlPrefix = mapLauncher.urlPrefixForMapApp(mapAppType)
                     expect(urlPrefix).notTo(beNil())
                     expect(urlPrefix).to(equal("here-route:share.here.com"))
                 }
                 it("for Google Maps") {
-                    let mapAppType: ASMapApp! = ASMapApp.ASMapAppGoogleMaps
+                    let mapAppType: MapApp! = .google
                     expect(mapAppType).notTo(beNil())
                     let urlPrefix = mapLauncher.urlPrefixForMapApp(mapAppType)
                     expect(urlPrefix).notTo(beNil())
                     expect(urlPrefix).to(equal("comgooglemaps://"))
                 }
                 it("for Yandex Navigator") {
-                    let mapAppType: ASMapApp! = ASMapApp.ASMapAppYandexNavigator
+                    let mapAppType: MapApp! = .yandex
                     expect(mapAppType).notTo(beNil())
                     let urlPrefix = mapLauncher.urlPrefixForMapApp(mapAppType)
                     expect(urlPrefix).notTo(beNil())
                     expect(urlPrefix).to(equal("yandexnavi://"))
                 }
                 it("for CityMapper") {
-                    let mapAppType: ASMapApp! = ASMapApp.ASMapAppCitymapper
+                    let mapAppType: MapApp! = .citymapper
                     expect(mapAppType).notTo(beNil())
                     let urlPrefix = mapLauncher.urlPrefixForMapApp(mapAppType)
                     expect(urlPrefix).notTo(beNil())
                     expect(urlPrefix).to(equal("citymapper://"))
                 }
                 it("for Navigon") {
-                    let mapAppType: ASMapApp! = ASMapApp.ASMapAppNavigon
+                    let mapAppType: MapApp! = .navigon
                     expect(mapAppType).notTo(beNil())
                     let urlPrefix = mapLauncher.urlPrefixForMapApp(mapAppType)
                     expect(urlPrefix).notTo(beNil())
                     expect(urlPrefix).to(equal("navigon://"))
                 }
                 it("for Transit") {
-                    let mapAppType: ASMapApp! = ASMapApp.ASMapAppTheTransitApp
+                    let mapAppType: MapApp! = .transit
                     expect(mapAppType).notTo(beNil())
                     let urlPrefix = mapLauncher.urlPrefixForMapApp(mapAppType)
                     expect(urlPrefix).notTo(beNil())
                     expect(urlPrefix).to(equal("transit://"))
                 }
                 it("for Wazer") {
-                    let mapAppType: ASMapApp! = ASMapApp.ASMapAppWaze
+                    let mapAppType: MapApp! = .waze
                     expect(mapAppType).notTo(beNil())
                     let urlPrefix = mapLauncher.urlPrefixForMapApp(mapAppType)
                     expect(urlPrefix).notTo(beNil())
                     expect(urlPrefix).to(equal("waze://"))
                 }
                 it("for Moovit") {
-                    let mapAppType: ASMapApp! = ASMapApp.ASMapAppMoovit
+                    let mapAppType: MapApp! = .moovit
                     expect(mapAppType).notTo(beNil())
                     let urlPrefix = mapLauncher.urlPrefixForMapApp(mapAppType)
                     expect(urlPrefix).notTo(beNil())
@@ -91,25 +91,25 @@ class ASMapLauncherTests: QuickSpec {
             }
             context("Check if Map installed") {
                 it("for Apple Maps") {
-                    expect(mapLauncher.isMapAppInstalled(ASMapApp.ASMapAppAppleMaps)).to(equal(true))
+                    expect(mapLauncher.isMapAppInstalled(.apple)).to(equal(true))
                 }
                 it("for unavailable map") {
-                    expect(mapLauncher.isMapAppInstalled(ASMapApp.ASMapAppHEREMaps)).to(equal(false))
+                    expect(mapLauncher.isMapAppInstalled(.here)).to(equal(false))
                 }
             }
             context("Check prepared string") {
                 it("for Google Maps when all params are valid") {
-                    let mapPoint = ASMapPoint(location: CLLocation(latitude: 10.0, longitude: 10.0), name: "TestName", address: "TestAddress")
+                    let mapPoint = MapPoint(location: CLLocation(latitude: 10.0, longitude: 10.0), name: "TestName", address: "TestAddress")
                     let preparedString = mapLauncher.googleMapsString(mapPoint)
                     expect(preparedString).to(equal(("10.000000,10.000000+(TestName)")))
                 }
                 it("for Google Maps when location is not valid") {
-                    let mapPoint = ASMapPoint(location: CLLocation(latitude: -9999.99, longitude: -9999.00), name: "TestName", address: "TestAddress")
+                    let mapPoint = MapPoint(location: CLLocation(latitude: -9999.99, longitude: -9999.00), name: "TestName", address: "TestAddress")
                     let preparedString = mapLauncher.googleMapsString(mapPoint)
                     expect(preparedString).to(equal(("")))
                 }
                 it("for Google Maps when name is empty") {
-                    let mapPoint = ASMapPoint(location: CLLocation(latitude: 10.0, longitude: 10.0), name: "", address: "TestAddress")
+                    let mapPoint = MapPoint(location: CLLocation(latitude: 10.0, longitude: 10.0), name: "", address: "TestAddress")
                     let preparedString = mapLauncher.googleMapsString(mapPoint)
                     expect(preparedString).to(equal(("10.000000,10.000000")))
                 }
@@ -128,66 +128,66 @@ class ASMapLauncherTests: QuickSpec {
                 }
             }
             context("Check launch map app") {
-                var fromPoint: ASMapPoint!
-                var toPoint: ASMapPoint!
+                var fromPoint: MapPoint!
+                var toPoint: MapPoint!
                 beforeEach {
-                    fromPoint = ASMapPoint(location: CLLocation(latitude: 10.0, longitude: 10.0), name: "FromName", address: "fromAddress")
-                    toPoint = ASMapPoint(location: CLLocation(latitude: 20.0, longitude: 20.0), name: "ToName", address: "ToAddress")
+                    fromPoint = MapPoint(location: CLLocation(latitude: 10.0, longitude: 10.0), name: "FromName", address: "fromAddress")
+                    toPoint = MapPoint(location: CLLocation(latitude: 20.0, longitude: 20.0), name: "ToName", address: "ToAddress")
                 }
                 it("for Apple Maps") {
-                    let mapApp = ASMapApp.ASMapAppAppleMaps
+                    let mapApp: MapApp = .apple
                     expect(mapLauncher.launchMapApp(mapApp, fromDirections: fromPoint, toDirection: toPoint)).to(equal(true))
                 }
                 it("for HERE Maps") {
                     mapLauncher.application = MockApplication()
-                    let mapApp = ASMapApp.ASMapAppHEREMaps
+                    let mapApp: MapApp = .here
                     expect(mapLauncher.isMapAppInstalled(mapApp)).to(beTrue())
                     expect(mapLauncher.launchMapApp(mapApp, fromDirections: fromPoint, toDirection: toPoint)).to(equal(true))
                 }
                 it("for Google Maps") {
                     mapLauncher.application = MockApplication()
-                    let mapApp = ASMapApp.ASMapAppGoogleMaps
+                    let mapApp: MapApp = .google
                     expect(mapLauncher.isMapAppInstalled(mapApp)).to(beTrue())
                     expect(mapLauncher.launchMapApp(mapApp, fromDirections: fromPoint, toDirection: toPoint)).to(equal(true))
                 }
                 it("for Yandex Navigator") {
                     mapLauncher.application = MockApplication()
-                    let mapApp = ASMapApp.ASMapAppYandexNavigator
+                    let mapApp: MapApp = .yandex
                     expect(mapLauncher.isMapAppInstalled(mapApp)).to(beTrue())
                     expect(mapLauncher.launchMapApp(mapApp, fromDirections: fromPoint, toDirection: toPoint)).to(equal(true))
                 }
                 it("for City Mapper") {
                     mapLauncher.application = MockApplication()
-                    let mapApp = ASMapApp.ASMapAppCitymapper
+                    let mapApp: MapApp = .citymapper
                     expect(mapLauncher.isMapAppInstalled(mapApp)).to(beTrue())
                     expect(mapLauncher.launchMapApp(mapApp, fromDirections: fromPoint, toDirection: toPoint)).to(equal(true))
                 }
                 it("for Navigon") {
                     mapLauncher.application = MockApplication()
-                    let mapApp = ASMapApp.ASMapAppNavigon
+                    let mapApp: MapApp = .navigon
                     expect(mapLauncher.isMapAppInstalled(mapApp)).to(beTrue())
                     expect(mapLauncher.launchMapApp(mapApp, fromDirections: fromPoint, toDirection: toPoint)).to(equal(true))
                 }
                 it("for Transit") {
                     mapLauncher.application = MockApplication()
-                    let mapApp = ASMapApp.ASMapAppTheTransitApp
+                    let mapApp: MapApp = .transit
                     expect(mapLauncher.isMapAppInstalled(mapApp)).to(beTrue())
                     expect(mapLauncher.launchMapApp(mapApp, fromDirections: fromPoint, toDirection: toPoint)).to(equal(true))
                 }
                 it("for Waze") {
                     mapLauncher.application = MockApplication()
-                    let mapApp = ASMapApp.ASMapAppWaze
+                    let mapApp: MapApp = .waze
                     expect(mapLauncher.isMapAppInstalled(mapApp)).to(beTrue())
                     expect(mapLauncher.launchMapApp(mapApp, fromDirections: fromPoint, toDirection: toPoint)).to(equal(true))
                 }
                 it("for Moovit") {
                     mapLauncher.application = MockApplication()
-                    let mapApp = ASMapApp.ASMapAppMoovit
+                    let mapApp: MapApp = .moovit
                     expect(mapLauncher.isMapAppInstalled(mapApp)).to(beTrue())
                     expect(mapLauncher.launchMapApp(mapApp, fromDirections: fromPoint, toDirection: toPoint)).to(equal(true))
                 }
                 it("for HERE Maps when not installed") {
-                    let mapApp = ASMapApp.ASMapAppHEREMaps
+                    let mapApp: MapApp = .here
                     expect(mapLauncher.isMapAppInstalled(mapApp)).to(beFalse())
                     expect(mapLauncher.launchMapApp(mapApp, fromDirections: fromPoint, toDirection: toPoint)).to(equal(false))
                 }

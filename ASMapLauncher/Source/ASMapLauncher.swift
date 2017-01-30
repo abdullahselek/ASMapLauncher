@@ -32,24 +32,24 @@ import MapKit
 /**
   * Supported map applications
  */
-public enum ASMapApp : String {
-    case ASMapAppAppleMaps = "Apple Maps",
-    ASMapAppHEREMaps = "HERE Maps",
-    ASMapAppGoogleMaps = "Google Maps",
-    ASMapAppYandexNavigator = "Yandex Navigator",
-    ASMapAppCitymapper = "Citymapper",
-    ASMapAppNavigon = "Navigon",
-    ASMapAppTheTransitApp = "The Transit App",
-    ASMapAppWaze = "Waze",
-    ASMapAppMoovit = "Moovit"
-    
-    static let allValues = [ASMapAppAppleMaps, ASMapAppHEREMaps, ASMapAppGoogleMaps, ASMapAppYandexNavigator, ASMapAppCitymapper, ASMapAppNavigon, ASMapAppTheTransitApp, ASMapAppWaze, ASMapAppMoovit]
+public enum MapApp : String {
+    case apple = "Apple Maps",
+    here = "HERE Maps",
+    google = "Google Maps",
+    yandex = "Yandex Navigator",
+    citymapper = "Citymapper",
+    navigon = "Navigon",
+    transit = "The Transit App",
+    waze = "Waze",
+    moovit = "Moovit"
+
+    static let allValues = [apple, here, google, yandex, citymapper, navigon, transit, waze, moovit]
 }
 
 /**
   * Launcher class
  */
-open class ASMapLauncher {
+public class ASMapLauncher {
     
     /**
       * UIApplication used for deep linking
@@ -59,7 +59,7 @@ open class ASMapLauncher {
     /**
       * Holds available map applications
      */
-    fileprivate var availableMapApps: NSMutableArray! = NSMutableArray()
+    private var availableMapApps: NSMutableArray! = NSMutableArray()
     
     /**
       * Initiliaze Map Launcher
@@ -73,8 +73,8 @@ open class ASMapLauncher {
     /**
       * Prepares available navigation apps installed on device
      */
-    fileprivate func getAvailableNavigationApps() {
-        for type in ASMapApp.allValues {
+    internal func getAvailableNavigationApps() {
+        for type in MapApp.allValues {
             if isMapAppInstalled(type) {
                 availableMapApps.add(type.rawValue)
             }
@@ -84,27 +84,27 @@ open class ASMapLauncher {
     /**
       * Prepares url scheme prefix used to open app with given app type
       *
-      * @param mapApp ASMapApp enum
+      * @param mapApp MapApp enum
       *
       * @return Url Prefix
      */
-    open func urlPrefixForMapApp(_ mapApp: ASMapApp) -> String {
+    internal func urlPrefixForMapApp(_ mapApp: MapApp) -> String {
         switch(mapApp) {
-        case .ASMapAppHEREMaps:
+        case .here:
             return "here-route:share.here.com"
-        case .ASMapAppGoogleMaps:
+        case .google:
             return "comgooglemaps://"
-        case .ASMapAppYandexNavigator:
+        case .yandex:
             return "yandexnavi://"
-        case .ASMapAppCitymapper:
+        case .citymapper:
             return "citymapper://"
-        case .ASMapAppNavigon:
+        case .navigon:
             return "navigon://"
-        case .ASMapAppTheTransitApp:
+        case .transit:
             return "transit://"
-        case .ASMapAppWaze:
+        case .waze:
             return "waze://"
-        case .ASMapAppMoovit:
+        case .moovit:
             return "moovit://"
         default:
             return ""
@@ -114,12 +114,12 @@ open class ASMapLauncher {
     /**
       * Checks if app installed with given app type
       *
-      * @param mapApp ASMapApp
+      * @param mapApp MapApp
       *
       * @return Bool installed or not
      */
-    open func isMapAppInstalled(_ mapApp: ASMapApp) -> Bool {
-        if mapApp == .ASMapAppAppleMaps {
+    public func isMapAppInstalled(_ mapApp: MapApp) -> Bool {
+        if mapApp == .apple {
             return true
         }
         
@@ -130,26 +130,26 @@ open class ASMapLauncher {
     /**
       * Launch navigation application with given app and directions
       *
-      * @param mapApp ASMapApp
-      * @param fromDirections ASMapPoint
-      * @param toDirection ASMapPoint
+      * @param mapApp MapApp
+      * @param fromDirections MapAppPoint
+      * @param toDirection MapAppPoint
      */
-    open func launchMapApp(_ mapApp: ASMapApp, fromDirections: ASMapPoint!, toDirection: ASMapPoint!) -> Bool {
+    public func launchMapApp(_ mapApp: MapApp, fromDirections: MapPoint!, toDirection: MapPoint!) -> Bool {
         if !isMapAppInstalled(mapApp) {
             return false
         }
         var url: String!
         switch(mapApp) {
-        case .ASMapAppAppleMaps:
+        case .apple:
             url = NSString(format: "http://maps.apple.com/?saddr=%@&daddr=%@&z=14", googleMapsString(fromDirections), googleMapsString(toDirection)) as String
-        case .ASMapAppHEREMaps:
+        case .here:
             url = NSString(format: "here-route://%f,%f,%@/%f,%f,%@", fromDirections.location.coordinate.latitude, fromDirections.location.coordinate.longitude, fromDirections.name, toDirection.location.coordinate.latitude, toDirection.location.coordinate.longitude, toDirection.name) as String
-        case .ASMapAppGoogleMaps:
+        case .google:
             url = NSString(format: "comgooglemaps://?saddr=%@&daddr=%@", googleMapsString(fromDirections), googleMapsString(toDirection)) as String
-        case .ASMapAppYandexNavigator:
+        case .yandex:
             url = NSString(format: "yandexnavi://build_route_on_map?lat_to=%f&lon_to=%f&lat_from=%f&lon_from=%f",
                 toDirection.location.coordinate.latitude, toDirection.location.coordinate.longitude, fromDirections.location.coordinate.latitude, fromDirections.location.coordinate.longitude) as String
-        case .ASMapAppCitymapper:
+        case .citymapper:
             let params: NSMutableArray! = NSMutableArray(capacity: 10)
             if CLLocationCoordinate2DIsValid(fromDirections.location.coordinate) {
                 params.add(NSString(format: "startcoord=%f,%f", fromDirections.location.coordinate.latitude, fromDirections.location.coordinate.longitude))
@@ -171,14 +171,14 @@ open class ASMapLauncher {
             }
             
             url = NSString(format: "citymapper://directions?%@", params.componentsJoined(by: "&")) as String
-        case .ASMapAppNavigon:
+        case .navigon:
             var name: String = "Destination"
             if !toDirection.name.isEmpty {
                 name = toDirection.name
             }
             
             url = NSString(format: "navigon://coordinate/%@/%f/%f", urlEncode(name as NSString), toDirection.location.coordinate.longitude, toDirection.location.coordinate.latitude) as String
-        case .ASMapAppTheTransitApp:
+        case .transit:
             let params = NSMutableArray(capacity: 2)
             if fromDirections != nil {
                 params.add(NSString(format: "from=%f,%f", fromDirections.location.coordinate.latitude, fromDirections.location.coordinate.longitude))
@@ -187,9 +187,9 @@ open class ASMapLauncher {
                 params.add(NSString(format: "to=%f,%f", toDirection.location.coordinate.latitude, toDirection.location.coordinate.longitude))
             }
             url = NSString(format: "transit://directions?%@", params.componentsJoined(by: "&")) as String
-        case .ASMapAppWaze:
+        case .waze:
             url = NSString(format: "waze://?ll=%f,%f&navigate=yes", toDirection.location.coordinate.latitude, toDirection.location.coordinate.longitude) as String
-        case .ASMapAppMoovit:
+        case .moovit:
             url = NSString(format: "moovit://directions?dest_lat=%f&dest_lon=%f&dest_name%@=&orig_lat=%f&orig_lon=%f&orig_name=%@&auto_run=true&partner_id=%@", toDirection.location.coordinate.latitude, toDirection.location.coordinate.longitude, urlEncode(toDirection.name as NSString), fromDirections.location.coordinate.latitude, fromDirections.location.coordinate.longitude, urlEncode(fromDirections.name as NSString), Bundle.main.object(forInfoDictionaryKey: "CFBundleName") as? String ?? "") as String
         }
         if #available(iOS 10.0, *) {
@@ -204,11 +204,11 @@ open class ASMapLauncher {
     /**
       * Prepares deep linking url with given point
       *
-      * @param mapPoint ASMapPoint
+      * @param mapPoint MapAppPoint
       *
       * @return Deeplink url
      */
-    func googleMapsString(_ mapPoint: ASMapPoint) -> NSString {
+    internal func googleMapsString(_ mapPoint: MapPoint) -> NSString {
         if !CLLocationCoordinate2DIsValid(mapPoint.location.coordinate) {
             return ""
         }
@@ -228,7 +228,7 @@ open class ASMapLauncher {
       *
       * @return Encoded name
      */
-    func urlEncode(_ name: NSString) -> NSString {
+    internal func urlEncode(_ name: NSString) -> NSString {
         return name.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)! as NSString
     }
     
@@ -239,7 +239,7 @@ open class ASMapLauncher {
       *
       * @return Map Apps
      */
-    func getMapApps() -> NSMutableArray! {
+    public func getMapApps() -> NSMutableArray! {
         return availableMapApps
     }
     
@@ -248,22 +248,22 @@ open class ASMapLauncher {
 /**
   * Point class used for deep linking
  */
-open class ASMapPoint: NSObject {
+public class MapPoint: NSObject {
     
     /**
       * Location value for navigation
      */
-    var location: CLLocation!
+    internal var location: CLLocation!
     
     /**
       * Place name
      */
-    var name: String!
+    internal var name: String!
     
     /**
       * Place address
      */
-    var address: String!
+    internal var address: String!
     
     /**
       * Initialize point object with given parameters
@@ -272,7 +272,7 @@ open class ASMapPoint: NSObject {
       * @param name Name belongs to place
       * @param address Address belongs to place
      */
-    public init(location: CLLocation!, name: String!, address: String!) {
+    public init(location: CLLocation, name: String, address: String) {
         self.location = location
         self.name = name
         self.address = address
