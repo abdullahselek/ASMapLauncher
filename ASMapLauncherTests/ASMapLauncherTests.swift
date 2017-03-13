@@ -37,7 +37,7 @@ class ASMapLauncherTests: QuickSpec {
                     expect(mapAppType).notTo(beNil())
                     let urlPrefix = mapLauncher.urlPrefixForMapApp(mapAppType)
                     expect(urlPrefix).notTo(beNil())
-                    expect(urlPrefix).to(equal("here-route:share.here.com"))
+                    expect(urlPrefix).to(equal("here-route://"))
                 }
                 it("for Google Maps") {
                     let mapAppType: MapApp! = .google

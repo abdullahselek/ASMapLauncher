@@ -89,7 +89,7 @@ public class ASMapLauncher {
     internal func urlPrefixForMapApp(_ mapApp: MapApp) -> String {
         switch(mapApp) {
         case .here:
-            return "here-route:share.here.com"
+            return "here-route://"
         case .google:
             return "comgooglemaps://"
         case .yandex:
