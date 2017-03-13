@@ -138,7 +138,23 @@ public class ASMapLauncher {
         case .apple:
             url = NSString(format: "http://maps.apple.com/?saddr=%@&daddr=%@&z=14", googleMapsString(fromDirections), googleMapsString(toDirection)) as String
         case .here:
-            url = NSString(format: "here-route://%f,%f,%@/%f,%f,%@", fromDirections.location.coordinate.latitude, fromDirections.location.coordinate.longitude, fromDirections.name, toDirection.location.coordinate.latitude, toDirection.location.coordinate.longitude, toDirection.name) as String
+            if #available(iOS 9.0, *) {
+                url = NSString(format: "https://share.here.com/r/%f,%f,%@/%f,%f,%@",
+                               fromDirections.location.coordinate.latitude,
+                               fromDirections.location.coordinate.longitude,
+                               fromDirections.name,
+                               toDirection.location.coordinate.latitude,
+                               toDirection.location.coordinate.longitude,
+                               toDirection.name) as String
+            } else {
+                url = NSString(format: "here-route://%f,%f,%@/%f,%f,%@",
+                               fromDirections.location.coordinate.latitude,
+                               fromDirections.location.coordinate.longitude,
+                               fromDirections.name,
+                               toDirection.location.coordinate.latitude,
+                               toDirection.location.coordinate.longitude,
+                               toDirection.name) as String
+            }
         case .google:
             url = NSString(format: "comgooglemaps://?saddr=%@&daddr=%@", googleMapsString(fromDirections), googleMapsString(toDirection)) as String
         case .yandex:
