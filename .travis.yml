@@ -1,21 +1,36 @@
 language: objective-c
-osx_image: xcode8
-xcode_project: ASMapLauncher.xcworkspace
-xcode_scheme: ASMapLauncherTests
-xcode_sdk: iphonesimulator10.0
+osx_image: xcode8.3
 
-branches:
- only:
- - master
+env:
+  global:
+  - LC_CTYPE=en_US.UTF-8
+  - LANG=en_US.UTF-8
+  - WORKSPACE=ASMapLauncher.xcworkspace
+  - SCHEME=ASMapLauncher
+  - SDK=iphonesimulator10.3.1
+  - RUN_TESTS="YES"
+  - POD_LINT="NO"
+  matrix:
+    - DESTINATION="OS=10.3.1,name=iPhone SE"
+    - DESTINATION="OS=9.0,name=iPhone 6"
 
 before_install:
-- rm -rf /Users/travis/Library/Developer/Xcode/DerivedData/ForceTouchActions-*/
+- rm -rf /Users/travis/Library/Developer/Xcode/DerivedData/ASMapLauncher-*/
 - rvm use $RVM_RUBY_VERSION
 
 install:
 - bundle install --without=documentation --path ../travis_bundle_dir
 
 script:
-- xcodebuild -workspace ASMapLauncher.xcworkspace -scheme ASMapLauncher -destination "platform=iOS Simulator,name=iPhone 6s,OS=10.0" clean test | xcpretty
+  - set -o pipefail
+  - xcodebuild -version
+  - xcodebuild -showsdks
+
+# Build in Debug and Run Tests if specified
+  - if [ $RUN_TESTS == "YES" ]; then
+      travis_retry xcodebuild -workspace "$WORKSPACE" -scheme "$SCHEME" -sdk "$SDK" -destination "$DESTINATION" -configuration Debug ONLY_ACTIVE_ARCH=NO ENABLE_TESTABILITY=YES test | xcpretty;
+    else
+      xcodebuild -workspace "$WORKSPACE" -scheme "$SCHEME" -sdk "$SDK" -destination "$DESTINATION" -configuration Debug ONLY_ACTIVE_ARCH=NO build | xcpretty;
+    fi
 
 after_success: slather
