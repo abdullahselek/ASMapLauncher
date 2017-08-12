@@ -13,7 +13,7 @@ class ViewController: UIViewController, UIActionSheetDelegate, CLLocationManager
     
     // map launcher
     fileprivate var mapLauncher: ASMapLauncher!
-    fileprivate var mapApps: NSMutableArray!
+    fileprivate var mapApps = [String]()
     
     // location manager
     fileprivate var locationManager: CLLocationManager = CLLocationManager()

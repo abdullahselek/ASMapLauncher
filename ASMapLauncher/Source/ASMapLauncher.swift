@@ -57,7 +57,7 @@ public class ASMapLauncher {
     /**
       Holds available map applications
      */
-    private var availableMapApps = NSMutableArray()
+    private var availableMapApps = [String]()
     
     /**
       Initiliaze Map Launcher
@@ -74,7 +74,7 @@ public class ASMapLauncher {
     internal func getAvailableNavigationApps() {
         for type in MapApp.allValues {
             if isMapAppInstalled(type) {
-                availableMapApps.add(type.rawValue)
+                availableMapApps.append(type.rawValue)
             }
         }
     }
@@ -281,7 +281,7 @@ public class ASMapLauncher {
       Returns available navigation apps
       - returns: Map Apps
      */
-    public func getMapApps() -> NSMutableArray! {
+    public func getMapApps() -> [String] {
         return availableMapApps
     }
     

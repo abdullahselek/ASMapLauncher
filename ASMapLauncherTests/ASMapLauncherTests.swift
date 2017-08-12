@@ -211,7 +211,7 @@ class ASMapLauncherTests: QuickSpec {
             }
 
             context(".getMapApps()") {
-                var apps: NSMutableArray!
+                var apps = [String]()
 
                 beforeEach {
                     apps = mapLauncher.getMapApps()
