@@ -14,202 +14,360 @@ import Nimble
 class ASMapLauncherTests: QuickSpec {
     
     override func spec() {
-        describe("Map Launcher") {
+        describe("ASMapLauncher Tests") {
             var mapLauncher: ASMapLauncher!
+
             beforeEach {
                 mapLauncher = ASMapLauncher()
             }
-            context("Check initialization") {
-                it("if success") {
+
+            context(".init()") {
+                it("should return a map launcher") {
                     expect(mapLauncher).notTo(beNil())
                 }
             }
-            context("Check url prefix") {
-                it("for Apple Maps") {
-                    let mapAppType: MapApp! = .apple
-                    expect(mapAppType).notTo(beNil())
-                    let urlPrefix = mapLauncher.urlPrefixForMapApp(mapAppType)
-                    expect(urlPrefix).notTo(beNil())
-                    expect(urlPrefix).to(equal(""))
+
+            describe(".urlPrefixForMapApp(_:)") {
+                context("for Apple Maps") {
+                    var urlPrefix: String!
+
+                    beforeEach {
+                        urlPrefix = mapLauncher.urlPrefixForMapApp(.apple)
+                    }
+
+                    it("should return empty prefix") {
+                        expect(urlPrefix).to(equal(""))
+                    }
                 }
-                it("for HERE Maps") {
-                    let mapAppType: MapApp! = .here
-                    expect(mapAppType).notTo(beNil())
-                    let urlPrefix = mapLauncher.urlPrefixForMapApp(mapAppType)
-                    expect(urlPrefix).notTo(beNil())
-                    expect(urlPrefix).to(equal("here-route://"))
+
+                context("for HERE Maps") {
+                    var urlPrefix: String!
+
+                    beforeEach {
+                        urlPrefix = mapLauncher.urlPrefixForMapApp(.here)
+                    }
+
+                    it("should return a valid prefix") {
+                        expect(urlPrefix).to(equal("here-route://"))
+                    }
                 }
-                it("for Google Maps") {
-                    let mapAppType: MapApp! = .google
-                    expect(mapAppType).notTo(beNil())
-                    let urlPrefix = mapLauncher.urlPrefixForMapApp(mapAppType)
-                    expect(urlPrefix).notTo(beNil())
-                    expect(urlPrefix).to(equal("comgooglemaps://"))
+
+                context("for Google Maps") {
+                    var urlPrefix: String!
+
+                    beforeEach {
+                        urlPrefix = mapLauncher.urlPrefixForMapApp(.google)
+                    }
+
+                    it("should return a valid prefix") {
+                        expect(urlPrefix).to(equal("comgooglemaps://"))
+                    }
                 }
-                it("for Yandex Navigator") {
-                    let mapAppType: MapApp! = .yandex
-                    expect(mapAppType).notTo(beNil())
-                    let urlPrefix = mapLauncher.urlPrefixForMapApp(mapAppType)
-                    expect(urlPrefix).notTo(beNil())
-                    expect(urlPrefix).to(equal("yandexnavi://"))
+
+                context("for Yandex Navigator") {
+                    var urlPrefix: String!
+
+                    beforeEach {
+                        urlPrefix = mapLauncher.urlPrefixForMapApp(.yandex)
+                    }
+
+                    it("should return a valid prefix") {
+                        expect(urlPrefix).to(equal("yandexnavi://"))
+                    }
                 }
-                it("for CityMapper") {
-                    let mapAppType: MapApp! = .citymapper
-                    expect(mapAppType).notTo(beNil())
-                    let urlPrefix = mapLauncher.urlPrefixForMapApp(mapAppType)
-                    expect(urlPrefix).notTo(beNil())
-                    expect(urlPrefix).to(equal("citymapper://"))
+
+                context("for CityMapper") {
+                    var urlPrefix: String!
+
+                    beforeEach {
+                        urlPrefix = mapLauncher.urlPrefixForMapApp(.citymapper)
+                    }
+
+                    it("should return a valid prefix") {
+                        expect(urlPrefix).to(equal("citymapper://"))
+                    }
                 }
-                it("for Navigon") {
-                    let mapAppType: MapApp! = .navigon
-                    expect(mapAppType).notTo(beNil())
-                    let urlPrefix = mapLauncher.urlPrefixForMapApp(mapAppType)
-                    expect(urlPrefix).notTo(beNil())
-                    expect(urlPrefix).to(equal("navigon://"))
+
+                context("for Navigon") {
+                    var urlPrefix: String!
+
+                    beforeEach {
+                        urlPrefix = mapLauncher.urlPrefixForMapApp(.navigon)
+                    }
+
+                    it("should return a valid prefix") {
+                        expect(urlPrefix).to(equal("navigon://"))
+                    }
                 }
-                it("for Transit") {
-                    let mapAppType: MapApp! = .transit
-                    expect(mapAppType).notTo(beNil())
-                    let urlPrefix = mapLauncher.urlPrefixForMapApp(mapAppType)
-                    expect(urlPrefix).notTo(beNil())
-                    expect(urlPrefix).to(equal("transit://"))
+
+                context("for Transit") {
+                    var urlPrefix: String!
+
+                    beforeEach {
+                        urlPrefix = mapLauncher.urlPrefixForMapApp(.transit)
+                    }
+
+                    it("should return a valid prefix") {
+                        expect(urlPrefix).to(equal("transit://"))
+                    }
                 }
-                it("for Wazer") {
-                    let mapAppType: MapApp! = .waze
-                    expect(mapAppType).notTo(beNil())
-                    let urlPrefix = mapLauncher.urlPrefixForMapApp(mapAppType)
-                    expect(urlPrefix).notTo(beNil())
-                    expect(urlPrefix).to(equal("waze://"))
+
+                context("for Waze") {
+                    var urlPrefix: String!
+
+                    beforeEach {
+                        urlPrefix = mapLauncher.urlPrefixForMapApp(.waze)
+                    }
+
+                    it("should return a valid prefix") {
+                        expect(urlPrefix).to(equal("waze://"))
+                    }
                 }
-                it("for Moovit") {
-                    let mapAppType: MapApp! = .moovit
-                    expect(mapAppType).notTo(beNil())
-                    let urlPrefix = mapLauncher.urlPrefixForMapApp(mapAppType)
-                    expect(urlPrefix).notTo(beNil())
-                    expect(urlPrefix).to(equal("moovit://"))
+
+                context("for Moovit") {
+                    var urlPrefix: String!
+
+                    beforeEach {
+                        urlPrefix = mapLauncher.urlPrefixForMapApp(.moovit)
+                    }
+
+                    it("should return a valid prefix") {
+                        expect(urlPrefix).to(equal("moovit://"))
+                    }
                 }
             }
-            context("Check if Map installed") {
-                it("for Apple Maps") {
-                    expect(mapLauncher.isMapAppInstalled(.apple)).to(equal(true))
+
+            describe(".isMapAppInstalled(_:)") {
+                context("for Apple Maps") {
+                    it("it should return true") {
+                        expect(mapLauncher.isMapAppInstalled(.apple)).to(equal(true))
+                    }
                 }
-                it("for unavailable map") {
-                    expect(mapLauncher.isMapAppInstalled(.here)).to(equal(false))
-                }
-            }
-            context("Check prepared string") {
-                it("for Google Maps when all params are valid") {
-                    let mapPoint = MapPoint(location: CLLocation(latitude: 10.0, longitude: 10.0), name: "TestName", address: "TestAddress")
-                    let preparedString = mapLauncher.googleMapsString(mapPoint)
-                    expect(preparedString).to(equal(("10.000000,10.000000+(TestName)")))
-                }
-                it("for Google Maps when location is not valid") {
-                    let mapPoint = MapPoint(location: CLLocation(latitude: -9999.99, longitude: -9999.00), name: "TestName", address: "TestAddress")
-                    let preparedString = mapLauncher.googleMapsString(mapPoint)
-                    expect(preparedString).to(equal(("")))
-                }
-                it("for Google Maps when name is empty") {
-                    let mapPoint = MapPoint(location: CLLocation(latitude: 10.0, longitude: 10.0), name: "", address: "TestAddress")
-                    let preparedString = mapLauncher.googleMapsString(mapPoint)
-                    expect(preparedString).to(equal(("10.000000,10.000000")))
+
+                context("for HERE Maps") {
+                    it("it should return true") {
+                        expect(mapLauncher.isMapAppInstalled(.here)).to(equal(false))
+                    }
                 }
             }
-            context("Check url encode") {
-                it("for simple url") {
-                    let encodedUrl = mapLauncher.urlEncode("http://github.com/abdullahselek")
+
+            describe(".googleMapsString(_:)") {
+                context("when all params are filled") {
+                    var deeplinkingString: String!
+
+                    beforeEach {
+                        let mapPoint = MapPoint(location: CLLocation(latitude: 10.0, longitude: 10.0),
+                                                name: "TestName",
+                                                address: "TestAddress")
+                        deeplinkingString = mapLauncher.googleMapsString(mapPoint) as String
+                    }
+
+                    it("should return a non nil string") {
+                        expect(deeplinkingString).to(equal(("10.000000,10.000000+(TestName)")))
+                    }
+                }
+
+                context("when location is not valid") {
+                    var deeplinkingString: String!
+
+                    beforeEach {
+                        let mapPoint = MapPoint(location: CLLocation(latitude: -9999.99, longitude: -9999.00),
+                                                name: "TestName",
+                                                address: "TestAddress")
+                        deeplinkingString = mapLauncher.googleMapsString(mapPoint) as String
+                    }
+
+                    it("should return a empty string") {
+                        expect(deeplinkingString).to(equal(("")))
+                    }
+                }
+
+                context("when name is empty") {
+                    var deeplinkingString: String!
+
+                    beforeEach {
+                        let mapPoint = MapPoint(location: CLLocation(latitude: 10.0, longitude: 10.0),
+                                                name: "",
+                                                address: "TestAddress")
+                        deeplinkingString = mapLauncher.googleMapsString(mapPoint) as String
+                    }
+
+                    it("should return a string containts lat long") {
+                        expect(deeplinkingString).to(equal(("10.000000,10.000000")))
+                    }
+                }
+            }
+
+            context(".urlEncode(_:)") {
+                var encodedUrl: String!
+
+                beforeEach {
+                    encodedUrl = mapLauncher.urlEncode("http://github.com/abdullahselek") as String
+                }
+
+                it("should return a valid url string") {
                     expect(encodedUrl).to(equal("http://github.com/abdullahselek"))
                 }
             }
-            context("Check available maps") {
-                it("for Simulator") {
-                    let apps = mapLauncher.getMapApps()
-                    expect(apps).notTo(beNil())
+
+            context(".getMapApps()") {
+                var apps: NSMutableArray!
+
+                beforeEach {
+                    apps = mapLauncher.getMapApps()
+                }
+
+                it("should return an array") {
                     expect(apps).to(haveCount(1))
                 }
             }
-            context("Check launch map app") {
+
+            describe(".launchMapApp(_:fromDirections:toDirection:)") {
                 var fromPoint: MapPoint!
                 var toPoint: MapPoint!
+                var isOpened = false
+
                 beforeEach {
                     fromPoint = MapPoint(location: CLLocation(latitude: 10.0, longitude: 10.0), name: "FromName", address: "fromAddress")
                     toPoint = MapPoint(location: CLLocation(latitude: 20.0, longitude: 20.0), name: "ToName", address: "ToAddress")
+                    isOpened = false
                 }
-                it("for Apple Maps") {
-                    let mapApp: MapApp = .apple
-                    expect(mapLauncher.launchMapApp(mapApp, fromDirections: fromPoint, toDirection: toPoint)).to(equal(true))
+
+                context("for Apple Maps") {
+                    beforeEach {
+                        isOpened = mapLauncher.launchMapApp(.apple, fromDirections: fromPoint, toDirection: toPoint)
+                    }
+
+                    it("should launch given map app") {
+                        expect(isOpened).to(equal(true))
+                    }
                 }
-                it("for HERE Maps") {
-                    mapLauncher.application = MockApplication()
-                    let mapApp: MapApp = .here
-                    expect(mapLauncher.isMapAppInstalled(mapApp)).to(beTrue())
-                    expect(mapLauncher.launchMapApp(mapApp, fromDirections: fromPoint, toDirection: toPoint)).to(equal(true))
+
+                context("for HERE Maps") {
+                    beforeEach {
+                        mapLauncher.application = ApplicationFake(openUrl: true)
+                        isOpened = mapLauncher.launchMapApp(.here, fromDirections: fromPoint, toDirection: toPoint)
+                    }
+
+                    it("should launch given map app") {
+                        expect(isOpened).to(equal(true))
+                    }
                 }
-                it("for Google Maps") {
-                    mapLauncher.application = MockApplication()
-                    let mapApp: MapApp = .google
-                    expect(mapLauncher.isMapAppInstalled(mapApp)).to(beTrue())
-                    expect(mapLauncher.launchMapApp(mapApp, fromDirections: fromPoint, toDirection: toPoint)).to(equal(true))
+
+                context("for Google Maps") {
+                    beforeEach {
+                        mapLauncher.application = ApplicationFake(openUrl: true)
+                        isOpened = mapLauncher.launchMapApp(.google, fromDirections: fromPoint, toDirection: toPoint)
+                    }
+
+                    it("should launch given map app") {
+                        expect(isOpened).to(equal(true))
+                    }
                 }
-                it("for Yandex Navigator") {
-                    mapLauncher.application = MockApplication()
-                    let mapApp: MapApp = .yandex
-                    expect(mapLauncher.isMapAppInstalled(mapApp)).to(beTrue())
-                    expect(mapLauncher.launchMapApp(mapApp, fromDirections: fromPoint, toDirection: toPoint)).to(equal(true))
+
+                context("for Yandex Navigator") {
+                    beforeEach {
+                        mapLauncher.application = ApplicationFake(openUrl: true)
+                        isOpened = mapLauncher.launchMapApp(.yandex, fromDirections: fromPoint, toDirection: toPoint)
+                    }
+
+                    it("should launch given map app") {
+                        expect(isOpened).to(equal(true))
+                    }
                 }
-                it("for City Mapper") {
-                    mapLauncher.application = MockApplication()
-                    let mapApp: MapApp = .citymapper
-                    expect(mapLauncher.isMapAppInstalled(mapApp)).to(beTrue())
-                    expect(mapLauncher.launchMapApp(mapApp, fromDirections: fromPoint, toDirection: toPoint)).to(equal(true))
+
+                context("for CityMapper") {
+                    beforeEach {
+                        mapLauncher.application = ApplicationFake(openUrl: true)
+                        isOpened = mapLauncher.launchMapApp(.citymapper, fromDirections: fromPoint, toDirection: toPoint)
+                    }
+
+                    it("should launch given map app") {
+                        expect(isOpened).to(equal(true))
+                    }
                 }
-                it("for Navigon") {
-                    mapLauncher.application = MockApplication()
-                    let mapApp: MapApp = .navigon
-                    expect(mapLauncher.isMapAppInstalled(mapApp)).to(beTrue())
-                    expect(mapLauncher.launchMapApp(mapApp, fromDirections: fromPoint, toDirection: toPoint)).to(equal(true))
+
+                context("for Navigon") {
+                    beforeEach {
+                        mapLauncher.application = ApplicationFake(openUrl: true)
+                        isOpened = mapLauncher.launchMapApp(.navigon, fromDirections: fromPoint, toDirection: toPoint)
+                    }
+
+                    it("should launch given map app") {
+                        expect(isOpened).to(equal(true))
+                    }
                 }
-                it("for Transit") {
-                    mapLauncher.application = MockApplication()
-                    let mapApp: MapApp = .transit
-                    expect(mapLauncher.isMapAppInstalled(mapApp)).to(beTrue())
-                    expect(mapLauncher.launchMapApp(mapApp, fromDirections: fromPoint, toDirection: toPoint)).to(equal(true))
+
+                context("for Transit") {
+                    beforeEach {
+                        mapLauncher.application = ApplicationFake(openUrl: true)
+                        isOpened = mapLauncher.launchMapApp(.transit, fromDirections: fromPoint, toDirection: toPoint)
+                    }
+
+                    it("should launch given map app") {
+                        expect(isOpened).to(equal(true))
+                    }
                 }
-                it("for Waze") {
-                    mapLauncher.application = MockApplication()
-                    let mapApp: MapApp = .waze
-                    expect(mapLauncher.isMapAppInstalled(mapApp)).to(beTrue())
-                    expect(mapLauncher.launchMapApp(mapApp, fromDirections: fromPoint, toDirection: toPoint)).to(equal(true))
+
+                context("for Waze") {
+                    beforeEach {
+                        mapLauncher.application = ApplicationFake(openUrl: true)
+                        isOpened = mapLauncher.launchMapApp(.waze, fromDirections: fromPoint, toDirection: toPoint)
+                    }
+
+                    it("should launch given map app") {
+                        expect(isOpened).to(equal(true))
+                    }
                 }
-                it("for Moovit") {
-                    mapLauncher.application = MockApplication()
-                    let mapApp: MapApp = .moovit
-                    expect(mapLauncher.isMapAppInstalled(mapApp)).to(beTrue())
-                    expect(mapLauncher.launchMapApp(mapApp, fromDirections: fromPoint, toDirection: toPoint)).to(equal(true))
+
+                context("for Moovit") {
+                    beforeEach {
+                        mapLauncher.application = ApplicationFake(openUrl: true)
+                        isOpened = mapLauncher.launchMapApp(.moovit, fromDirections: fromPoint, toDirection: toPoint)
+                    }
+
+                    it("should launch given map app") {
+                        expect(isOpened).to(equal(true))
+                    }
                 }
-                it("for HERE Maps when not installed") {
-                    let mapApp: MapApp = .here
-                    expect(mapLauncher.isMapAppInstalled(mapApp)).to(beFalse())
-                    expect(mapLauncher.launchMapApp(mapApp, fromDirections: fromPoint, toDirection: toPoint)).to(equal(false))
+
+                context("for HERE Maps when app is not installed") {
+                    beforeEach {
+                        let application = ApplicationFake(openUrl: false)
+                        mapLauncher.application = application
+                        isOpened = mapLauncher.launchMapApp(.waze, fromDirections: fromPoint, toDirection: toPoint)
+                    }
+
+                    it("shouldn't launch given map app") {
+                        expect(isOpened).to(equal(false))
+                    }
                 }
             }
         }
     }
-    
-    class MockApplication: UIApplicationProtocol {
-        /**
-          * Open given url for iOS 10+
-         */
-        internal func open(_ url: URL, options: [String : Any], completionHandler completion: ((Bool) -> Void)?) {
-            
-        }
 
-        func openURL(_ url: URL) -> Bool {
-            return true
-        }
-        
-        func canOpenURL(_ url: URL) -> Bool {
-            return true
-        }
+}
+
+class ApplicationFake: UIApplicationProtocol {
+
+    var openUrl = true
+
+    init(openUrl: Bool) {
+        self.openUrl = openUrl
     }
-    
+
+    /**
+     * Open given url for iOS 10+
+     */
+    internal func open(_ url: URL, options: [String : Any], completionHandler completion: ((Bool) -> Void)?) {
+
+    }
+
+    func openURL(_ url: URL) -> Bool {
+        return openUrl
+    }
+
+    func canOpenURL(_ url: URL) -> Bool {
+        return openUrl
+    }
 }
