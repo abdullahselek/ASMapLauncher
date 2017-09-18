@@ -47,12 +47,12 @@ public enum MapApp : String {
 /**
   Launcher class
  */
-public class ASMapLauncher {
+open class ASMapLauncher {
     
     /**
       UIApplication used for deep linking
      */
-    var application: UIApplicationProtocol = UIApplication.shared
+    open var application: UIApplicationProtocol = UIApplication.shared
     
     /**
       Holds available map applications
@@ -112,7 +112,7 @@ public class ASMapLauncher {
       - parameter mapApp: MapApp
       - returns: Bool installed or not
      */
-    public func isMapAppInstalled(_ mapApp: MapApp) -> Bool {
+    open func isMapAppInstalled(_ mapApp: MapApp) -> Bool {
         if mapApp == .apple {
             return true
         }
@@ -130,7 +130,7 @@ public class ASMapLauncher {
       - parameter fromDirections: MapPoint
       - parameter toDirection: MapPoint
      */
-    public func launchMapApp(_ mapApp: MapApp, fromDirections: MapPoint!, toDirection: MapPoint!) -> Bool {
+    open func launchMapApp(_ mapApp: MapApp, fromDirections: MapPoint!, toDirection: MapPoint!) -> Bool {
         if !isMapAppInstalled(mapApp) {
             return false
         }
@@ -281,7 +281,7 @@ public class ASMapLauncher {
       Returns available navigation apps
       - returns: Map Apps
      */
-    public func getMapApps() -> [String] {
+    open func getMapApps() -> [String] {
         return availableMapApps
     }
     
@@ -290,7 +290,7 @@ public class ASMapLauncher {
 /**
   Point class used for deep linking
  */
-public class MapPoint: NSObject {
+open class MapPoint {
     
     /**
       Location value for navigation
@@ -317,8 +317,6 @@ public class MapPoint: NSObject {
         self.location = location
         self.name = name
         self.address = address
-        
-        super.init()
     }
     
 }
@@ -326,7 +324,7 @@ public class MapPoint: NSObject {
 /**
   Protocol that used for UIApplication
  */
-protocol UIApplicationProtocol {
+public protocol UIApplicationProtocol {
     
     /**
       Open given url
