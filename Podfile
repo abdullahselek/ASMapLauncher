@@ -2,7 +2,7 @@ platform :ios, '8.0'
 
 def testing_pods
     pod 'Quick'
-    pod 'Nimble'
+    pod 'Nimble', :inhibit_warnings => true
 end
 
 target 'ASMapLauncher' do
