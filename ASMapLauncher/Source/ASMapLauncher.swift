@@ -24,8 +24,8 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //  THE SOFTWARE.
 
-import Foundation
-import MapKit
+import UIKit
+import CoreLocation
 
 /**
   Supported map applications
@@ -283,40 +283,6 @@ open class ASMapLauncher {
      */
     open func getMapApps() -> [String] {
         return availableMapApps
-    }
-    
-}
-
-/**
-  Point class used for deep linking
- */
-open class MapPoint {
-    
-    /**
-      Location value for navigation
-     */
-    internal var location: CLLocation!
-    
-    /**
-      Place name
-     */
-    internal var name: String!
-    
-    /**
-      Place address
-     */
-    internal var address: String!
-    
-    /**
-      Initialize point object with given parameters
-      - parameter location: Location belongs to place
-      - parameter name: Name belongs to place
-      - parameter address: Address belongs to place
-     */
-    public init(location: CLLocation, name: String, address: String) {
-        self.location = location
-        self.name = name
-        self.address = address
     }
     
 }

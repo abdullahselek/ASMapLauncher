@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		4A7DCF4AF168136DFFF91228 /* Pods_ASMapLauncherTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 742705AEF11EFE5BB0313607 /* Pods_ASMapLauncherTests.framework */; };
 		A4B94E801B238C94006FFC09 /* ASMapLauncher.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4B94E7F1B238C94006FFC09 /* ASMapLauncher.swift */; };
+		A4D1AB821F8AA73E00446421 /* MapPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4D1AB811F8AA73E00446421 /* MapPoint.swift */; };
+		A4D1AB831F8AA77C00446421 /* MapPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4D1AB811F8AA73E00446421 /* MapPoint.swift */; };
+		A4D1AB841F8AA79B00446421 /* MapPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4D1AB811F8AA73E00446421 /* MapPoint.swift */; };
 		A4D9005D1B2DEC9300FCD9B5 /* ASMapLauncher.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4B94E7F1B238C94006FFC09 /* ASMapLauncher.swift */; };
 		A4DF984C1DF747DC008704B8 /* ASMapLauncherFramework.h in Headers */ = {isa = PBXBuildFile; fileRef = A4DF984A1DF747DC008704B8 /* ASMapLauncherFramework.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A4DF984F1DF747DC008704B8 /* ASMapLauncherFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A4DF98481DF747DC008704B8 /* ASMapLauncherFramework.framework */; };
@@ -60,6 +63,7 @@
 		6AB9DF7B4B02FBE8CE57C069 /* Pods-ASMapLauncherTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ASMapLauncherTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ASMapLauncherTests/Pods-ASMapLauncherTests.debug.xcconfig"; sourceTree = "<group>"; };
 		742705AEF11EFE5BB0313607 /* Pods_ASMapLauncherTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ASMapLauncherTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A4B94E7F1B238C94006FFC09 /* ASMapLauncher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ASMapLauncher.swift; path = Source/ASMapLauncher.swift; sourceTree = "<group>"; };
+		A4D1AB811F8AA73E00446421 /* MapPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MapPoint.swift; path = Source/MapPoint.swift; sourceTree = "<group>"; };
 		A4DF98481DF747DC008704B8 /* ASMapLauncherFramework.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ASMapLauncherFramework.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A4DF984A1DF747DC008704B8 /* ASMapLauncherFramework.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ASMapLauncherFramework.h; sourceTree = "<group>"; };
 		A4DF984B1DF747DC008704B8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -120,6 +124,7 @@
 			isa = PBXGroup;
 			children = (
 				A4B94E7F1B238C94006FFC09 /* ASMapLauncher.swift */,
+				A4D1AB811F8AA73E00446421 /* MapPoint.swift */,
 			);
 			name = Source;
 			sourceTree = "<group>";
@@ -461,6 +466,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A4D1AB831F8AA77C00446421 /* MapPoint.swift in Sources */,
 				A4DF98551DF747E7008704B8 /* ASMapLauncher.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -470,6 +476,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A4B94E801B238C94006FFC09 /* ASMapLauncher.swift in Sources */,
+				A4D1AB821F8AA73E00446421 /* MapPoint.swift in Sources */,
 				A4EC75481B2362A900A4528E /* ViewController.swift in Sources */,
 				A4EC75461B2362A900A4528E /* AppDelegate.swift in Sources */,
 			);
@@ -479,6 +486,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A4D1AB841F8AA79B00446421 /* MapPoint.swift in Sources */,
 				A4D9005D1B2DEC9300FCD9B5 /* ASMapLauncher.swift in Sources */,
 				A4EC755C1B2362A900A4528E /* ASMapLauncherTests.swift in Sources */,
 			);
