@@ -64,7 +64,7 @@ class ViewController: UIViewController, UIActionSheetDelegate, CLLocationManager
         let fromMapPoint: MapPoint! = MapPoint(location: CLLocation(latitude: currenctCoordinate.latitude, longitude: currenctCoordinate.longitude), name: "", address: "")
         let toMapPoint: MapPoint! = MapPoint(location: CLLocation(latitude: destination.coordinate.latitude, longitude: destination.coordinate.longitude), name: "", address: "")
 
-        mapLauncher.launchMapApp(MapApp(rawValue: mapApp)!, fromDirections: fromMapPoint, toDirection: toMapPoint)
+        _ = mapLauncher.launchMapApp(MapApp(rawValue: mapApp)!, fromDirections: fromMapPoint, toDirection: toMapPoint)
     }
 
     // MARK: Location Manager methods
