@@ -8,7 +8,11 @@
 ASMapLauncher is a library for iOS written in Swift that helps navigation with various mapping applications.
 
 ## Requirements
-iOS 8.0+
+
+| ASMapLauncher Version | Minimum iOS Target  | Swift Version |
+|:--------------------:|:---------------------------:|:---------------------------:|
+| 1.0.6 | 8.x | 4.0 |
+| 1.0.5 | 8.0 | 3.x |
 
 ## CocoaPods
 
