@@ -9,7 +9,7 @@
 import UIKit
 import MapKit
 
-class ViewController: UIViewController, UIActionSheetDelegate, CLLocationManagerDelegate {
+class ViewController: UIViewController, CLLocationManagerDelegate {
 
     // map launcher
     fileprivate var mapLauncher: ASMapLauncher!
@@ -42,29 +42,23 @@ class ViewController: UIViewController, UIActionSheetDelegate, CLLocationManager
 
     func showNavigationSheet() {
         self.mapApps = mapLauncher.getMapApps()
-        let actionSheet = UIActionSheet(title: "Choose your app for navigation", delegate: self, cancelButtonTitle: nil, destructiveButtonTitle: nil)
+        let alertController = UIAlertController(title: "Choose your app for navigation", message: nil, preferredStyle: .actionSheet)
         for mapApp in self.mapApps {
-            actionSheet.addButton(withTitle: mapApp)
+            let action = UIAlertAction(title: mapApp, style: .cancel) { action in
+                let destination: CLLocation! = CLLocation(latitude: 41.0053215, longitude: 29.0121795)
+                let fromMapPoint = MapPoint(location: CLLocation(latitude: self.currenctCoordinate.latitude,
+                                                                 longitude: self.currenctCoordinate.longitude),
+                                            name: "",
+                                            address: "")
+                let toMapPoint = MapPoint(location: CLLocation(latitude: destination.coordinate.latitude,
+                                                               longitude: destination.coordinate.longitude),
+                                          name: "",
+                                          address: "")
+                _ = self.mapLauncher.launchMapApp(MapApp(rawValue: mapApp)!, fromDirections: fromMapPoint, toDirection: toMapPoint)
+            }
+            alertController.addAction(action)
         }
-        actionSheet.addButton(withTitle: "Cancel")
-        actionSheet.cancelButtonIndex = mapApps.count
-        actionSheet.show(in: self.view)
-    }
-
-    // MARK: ActionSheet Delegates
-
-    func actionSheet(_ actionSheet: UIActionSheet, clickedButtonAt buttonIndex: Int) {
-        if buttonIndex == actionSheet.numberOfButtons - 1 {
-            return
-        }
-
-        let mapApp: String! = self.mapApps[buttonIndex]
-        let destination: CLLocation! = CLLocation(latitude: 41.0053215, longitude: 29.0121795)
-
-        let fromMapPoint: MapPoint! = MapPoint(location: CLLocation(latitude: currenctCoordinate.latitude, longitude: currenctCoordinate.longitude), name: "", address: "")
-        let toMapPoint: MapPoint! = MapPoint(location: CLLocation(latitude: destination.coordinate.latitude, longitude: destination.coordinate.longitude), name: "", address: "")
-
-        _ = mapLauncher.launchMapApp(MapApp(rawValue: mapApp)!, fromDirections: fromMapPoint, toDirection: toMapPoint)
+        present(alertController, animated: true, completion: nil)
     }
 
     // MARK: Location Manager methods
