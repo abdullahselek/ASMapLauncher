@@ -349,25 +349,28 @@ class ASMapLauncherTests: QuickSpec {
 }
 
 class ApplicationFake: UIApplicationProtocol {
-
+    
     var openUrl = true
 
     init(openUrl: Bool) {
         self.openUrl = openUrl
     }
+    
+    func openUrl(_ url: URL) -> Bool {
+        return openUrl
+    }
+    
+    func canOpenUrl(_ url: URL) -> Bool {
+        return openUrl
+    }
 
     /**
      * Open given url for iOS 10+
      */
-    internal func open(_ url: URL, options: [String : Any], completionHandler completion: ((Bool) -> Void)?) {
+    internal func openURL(_ url: URL,
+                          options: [UIApplication.OpenExternalURLOptionsKey: Any],
+                          completionHandler completion: ((Bool) -> Void)?) {
 
     }
 
-    func openURL(_ url: URL) -> Bool {
-        return openUrl
-    }
-
-    func canOpenURL(_ url: URL) -> Bool {
-        return openUrl
-    }
 }

@@ -121,7 +121,7 @@ open class ASMapLauncher {
         guard let url = URL(string: urlPrefix) else {
             return false
         }
-        return application.canOpenURL(url)
+        return application.canOpenUrl(url)
     }
 
     /**
@@ -235,10 +235,10 @@ open class ASMapLauncher {
             return false
         }
         if #available(iOS 10.0, *) {
-            application.open(url, options: [:], completionHandler: nil)
+            application.openURL(url, options: [:], completionHandler: nil)
             return true
         } else {
-            let isOpened = application.openURL(url)
+            let isOpened = application.openUrl(url)
             return isOpened
         }
     }
@@ -295,21 +295,48 @@ public protocol UIApplicationProtocol {
     /**
       Open given url
      */
-    func openURL(_ url: URL) -> Bool
+    func openUrl(_ url: URL) -> Bool
     
     /**
       Checks if given url can be opened
      */
-    func canOpenURL(_ url: URL) -> Bool
+    func canOpenUrl(_ url: URL) -> Bool
     
     /**
       Open given url for iOS 10+
      */
     @available(iOS 10.0, *)
-    func open(_ url: URL, options: [String : Any], completionHandler completion: ((Bool) -> Swift.Void)?)
+    func openURL(_ url: URL,
+                 options: [UIApplication.OpenExternalURLOptionsKey: Any],
+                 completionHandler completion: ((Bool) -> Swift.Void)?)
+
 }
 
 /**
   Extension for UIApplication
  */
-extension UIApplication: UIApplicationProtocol {}
+extension UIApplication: UIApplicationProtocol {
+
+    public func openUrl(_ url: URL) -> Bool {
+        if #available(iOS 10.0, *) {
+            return false
+        } else {
+            return openURL(url)
+        }
+    }
+    
+    public func canOpenUrl(_ url: URL) -> Bool {
+        return canOpenURL(url)
+    }
+
+    public func openURL(_ url: URL,
+                        options: [UIApplication.OpenExternalURLOptionsKey: Any],
+                        completionHandler completion: ((Bool) -> Void)?) {
+        if #available(iOS 10.0, *) {
+            open(url, options: options, completionHandler: completion)
+        } else {
+            _ = openUrl(url)
+        }
+    }
+
+}
