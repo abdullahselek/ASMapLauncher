@@ -11,6 +11,7 @@ ASMapLauncher is a library for iOS written in Swift that helps navigation with v
 
 | ASMapLauncher Version | Minimum iOS Target  | Swift Version |
 |:--------------------:|:---------------------------:|:---------------------------:|
+| 1.0.8 | 11.x | 5.x |
 | 1.0.7 | 9.x | 4.2 |
 | 1.0.6 | 8.x | 4.0 |
 | 1.0.5 | 8.0 | 3.x |
@@ -24,11 +25,11 @@ $ gem install cocoapods
 To integrate ASMapLauncher into your Xcode project using CocoaPods, specify it in your Podfile:
 ```
 source 'https://github.com/CocoaPods/Specs.git'
-platform :ios, '9.0'
+platform :ios, '11.0'
 use_frameworks!
 
 target '<Your Target Name>' do
-	pod 'ASMapLauncher', '1.0.7'
+	pod 'ASMapLauncher', '1.0.8'
 end
 ```
 Then, run the following command:
@@ -49,7 +50,7 @@ brew install carthage
 To integrate ASMapLauncher into your Xcode project using Carthage, specify it in your Cartfile:
 
 ```
-github "abdullahselek/ASMapLauncher" ~> 1.0.7
+github "abdullahselek/ASMapLauncher" ~> 1.0.8
 ```
 
 Run carthage update to build the framework and drag the built ASMapLauncher.framework into your Xcode project.
